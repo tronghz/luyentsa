@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lưu Trữ Toán Trước Buổi 1</title>
+    <link rel="icon" href="../images.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffffff 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 30px;
+            width: 95%;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .answer {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #4CAF50;
+        }
+
+        .button {
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: block;
+            margin: 20px auto;
+        }
+
+        .button:hover {
+            background: linear-gradient(to right, #ff8e8e, #ff6b6b);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lưu Trữ Toán Trước Buổi</h1>
+        <div id="savedQuestions"></div>
+        <a href="../../index.html" class="button">Quay Lại Trang Chủ</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedQuestions = JSON.parse(localStorage.getItem('savedQuestions'));
+            const savedAnswers = JSON.parse(localStorage.getItem('savedAnswers'));
+            const container = document.getElementById('savedQuestions');
+
+            if (savedQuestions && savedAnswers) {
+                savedQuestions.forEach((question, index) => {
+                    const questionDiv = document.createElement('div');
+                    questionDiv.className = 'question-container';
+                    questionDiv.innerHTML = `
+                        <img src="${question}" alt="Câu hỏi ${index + 1}">
+                        <p class="answer">Câu trả lời:ㅤ${savedAnswers[index].join('ㅤ')}</p>
+                    `;
+                    container.appendChild(questionDiv);
+                });
+            } else {
+                container.innerHTML = '<p>Không có bài thi nào được lưu trữ.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

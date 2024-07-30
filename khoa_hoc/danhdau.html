@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Câu Hỏi Đã Đánh Dấu</title>
+    <link rel="icon" href="images.png" type="image/png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .background-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 15vw;
+            color: rgba(0, 0, 0, 0.05);
+            z-index: -1;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .content-area {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .top-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .question {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .question h3 {
+            margin-top: 0;
+            color: #4CAF50;
+        }
+        .question button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .question button:hover {
+            background-color: #d32f2f;
+        }
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .nav-group button {
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .nav-group button:hover {
+            background-color: #007399;
+        }
+        .question-circles {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .question-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-text">TOÁN</div>
+
+    <div class="container">
+        <div class="content-area">
+            <div class="top-buttons">
+                <a href="../index.html" class="button">Trang Chủ</a>
+                <a href="toan_truoc_buoi_1.html" class="button">Quay Lại Bài Thi</a>
+            </div>
+
+            <h1>Câu Hỏi Đã Đánh Dấu</h1>
+
+            <div id="markedQuestionsContainer">
+                <!-- Các câu hỏi đã đánh dấu sẽ được thêm vào đây bằng JavaScript -->
+            </div>
+
+            <div class="navigation-buttons">
+                <div class="nav-group">
+                    <button id="prevButton">Trước</button>
+                    <button id="nextButton">Sau</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="questionCircles" class="question-circles">
+            <!-- Các vòng tròn đại diện cho câu hỏi sẽ được thêm vào đây bằng JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        let markedQuestions = [];
+        let allQuestions = [];
+        let currentIndex = 0;
+
+        function loadMarkedQuestions() {
+            const savedMarkedQuestions = localStorage.getItem('markedQuestions');
+            if (savedMarkedQuestions) {
+                markedQuestions = JSON.parse(savedMarkedQuestions);
+            }
+        }
+
+        function loadAllQuestions() {
+            const savedQuestions = localStorage.getItem('savedQuestions');
+            if (savedQuestions) {
+                allQuestions = JSON.parse(savedQuestions);
+            }
+        }
+
+        function displayMarkedQuestions() {
+            const container = document.getElementById('markedQuestionsContainer');
+            container.innerHTML = '';
+
+            if (markedQuestions.length === 0) {
+                container.innerHTML = '<p>Không có câu hỏi nào được đánh dấu.</p>';
+                return;
+            }
+
+            const questionIndex = markedQuestions[currentIndex];
+            const questionPath = allQuestions[questionIndex];
+
+            const questionElement = document.createElement('div');
+            questionElement.className = 'question';
+            questionElement.innerHTML = `
+                <h3>Câu hỏi ${questionIndex + 1}</h3>
+                <img src="${questionPath}" alt="Câu hỏi đã đánh dấu" style="max-width: 100%;">
+                <button onclick="unmarkQuestion(${questionIndex})">Bỏ đánh dấu</button>
+            `;
+            container.appendChild(questionElement);
+
+            updateQuestionCircles();
+        }
+
+        function unmarkQuestion(index) {
+            const questionIndex = markedQuestions.indexOf(index);
+            if (questionIndex > -1) {
+                markedQuestions.splice(questionIndex, 1);
+                localStorage.setItem('markedQuestions', JSON.stringify(markedQuestions));
+                if (currentIndex >= markedQuestions.length) {
+                    currentIndex = Math.max(0, markedQuestions.length - 1);
+                }
+                displayMarkedQuestions();
+            }
+        }
+
+        function updateQuestionCircles() {
+            const circlesContainer = document.getElementById('questionCircles');
+            circlesContainer.innerHTML = '';
+
+            markedQuestions.forEach((questionIndex, index) => {
+                const circle = document.createElement('div');
+                circle.className = 'question-circle';
+                circle.textContent = questionIndex + 1;
+                circle.style.backgroundColor = index === currentIndex ? '#4CAF50' : '#ddd';
+                circle.onclick = () => {
+                    currentIndex = index;
+                    displayMarkedQuestions();
+                };
+                circlesContainer.appendChild(circle);
+            });
+        }
+
+        function navigateQuestions(direction) {
+            if (direction === 'next' && currentIndex < markedQuestions.length - 1) {
+                currentIndex++;
+            } else if (direction === 'prev' && currentIndex > 0) {
+                currentIndex--;
+            }
+            displayMarkedQuestions();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMarkedQuestions();
+            loadAllQuestions();
+            displayMarkedQuestions();
+
+            document.getElementById('prevButton').addEventListener('click', () => navigateQuestions('prev'));
+            document.getElementById('nextButton').addEventListener('click', () => navigateQuestions('next'));
+        });
+    </script>
+</body>
+</html>

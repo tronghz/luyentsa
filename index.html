@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSA - ĐGTD | AIM ĐỖ ĐẠI HỌC</title>
+    <link rel="icon" href="images.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffffff 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .background-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30vw;
+            font-weight: bold;
+            color: rgba(182, 43, 43, 0.1);
+            z-index: -1;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px;
+            width: 95%;
+            max-width: 1200px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+            font-size: 3em;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .section-card {
+            background-color: #fff;
+            border-radius: 25px;
+            padding: 40px;
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .section-card:hover {
+            transform: translateY(-20px) scale(1.05);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            color: #ff6b6b;
+            font-size: 2em;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .section-icon {
+            margin-right: 20px;
+            font-size: 1.8em;
+            color: #ff6b6b;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .question-button {
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+            border: none;
+            padding: 18px 25px;
+            border-radius: 50px;
+            color: #fff;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-button:hover {
+            background: linear-gradient(to right, #ff8e8e, #ff6b6b);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+            h1 {
+                font-size: 2.5em;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-text">HUST</div>
+    <div class="container">
+        <h1>TSA - ĐGTD</h1>
+        <div class="section-grid">
+            <div class="section-card">
+                <h2><i class="fas fa-book-open section-icon"></i>Bài Tập Trong Khóa</h2>
+                <div class="button-grid">
+                    <a href="khoa_hoc/giao_dien_toan.html" class="question-button">Toán</a>
+                    <a href="khoa_hoc/dochieu.html" class="question-button">Đọc Hiểu</a>
+                    <a href="khoa_hoc/khoahoc.html" class="question-button">Khoa Học</a>
+                    <a href="khoa_hoc/danhdau.html" class="question-button">Đánh Dấu</a>
+                    <a href="khoa_hoc/lichsu.html" class="question-button">Lịch Sử Làm Bài</a>
+                </div>
+            </div>
+            <div class="section-card">
+                <h2><i class="fas fa-graduation-cap section-icon"></i>Luyện Đề Tổng Hợp</h2>
+                <div class="button-grid">
+                    <a href="#" class="question-button">Toán</a>
+                    <a href="#" class="question-button">Đọc Hiểu</a>
+                    <a href="#" class="question-button">Khoa Học</a>
+                    <a href="#" class="question-button">Đánh Dấu</a>
+                    <a href="#" class="question-button">Lịch Sử Làm Bài</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
