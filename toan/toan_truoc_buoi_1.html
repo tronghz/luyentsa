@@ -15,12 +15,14 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ffffff 100%);
+            background: linear-gradient(135deg, #ef5151 0%, #ffffff 100%);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            padding: 20px;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
         }
 
         .background-text {
@@ -39,12 +41,14 @@
         .container {
             background-color: rgba(255, 255, 255, 0.95);
             border-radius: 30px;
-            padding: 30px;
+            padding: 50px;
             width: 95%;
             max-width: 1200px;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-            display: flex;
+            margin-top: 30px;
             position: relative;
+            z-index: 1;
+            display: flex;
         }
 
         .content-area {
@@ -57,8 +61,8 @@
         h1 {
             text-align: center;
             color: #333;
-            margin-bottom: 20px;
-            font-size: 2.5em;
+            margin-bottom: 40px;
+            font-size: 3em;
             font-weight: 700;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
@@ -83,7 +87,7 @@
             grid-template-columns: repeat(5, 1fr);
             gap: 10px;
             padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: #fff;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
@@ -97,22 +101,23 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
+            color: #fff;
             font-weight: bold;
             transition: all 0.3s ease;
         }
 
         .question-circle:hover {
             transform: scale(1.1);
+            background-color: #ff0000;
         }
 
         .question-circle.active {
-            background-color: #4CAF50;
+            background-color: #66baf6;
         }
 
         .question-circle.marked {
-            background-color: #FFD700;
-            border: 2px solid #FFA500;
+            background-color: #d10cef;
+            border: 2px solid #7a2020;
         }
 
         .navigation-buttons {
@@ -153,17 +158,6 @@
             gap: 10px;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-            .content-area {
-                padding-right: 0;
-            }
-            .question-circles {
-                margin-top: 20px;
-            }
-        }
         .answer-section {
             margin-top: 20px;
             margin-bottom: 20px;
@@ -175,7 +169,7 @@
             width: 18%;
             padding: 10px;
             font-size: 16px;
-            border: 2px solid #ddd;
+            border: 2px solid #ff6b6b;
             border-radius: 5px;
             outline: none;
             transition: border-color 0.3s;
@@ -183,12 +177,73 @@
         }
 
         .answer-input:focus {
-            border-color: #4CAF50;
+            border-color: #ff8e8e;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .modal-content button {
+            margin: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #ff6b6b;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .modal-content button:hover {
+            background-color: #ff8e8e;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .content-area {
+                padding-right: 0;
+            }
+            .question-circles {
+                margin-top: 20px;
+            }
+        }
+        .question-circle.answered {
+            background-color: #4CAF50; /* Màu xanh lá */
         }
     </style>
 </head>
+
 <body>
     <div class="background-text">TOÁN</div>
+
+    <div id="warningModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <p>Nếu bạn làm lại đề này, lịch sử làm bài trước đó sẽ bị xóa</p>
+            <button id="continueButton">Tiếp tục</button>
+            <button id="goBackButton" onclick="window.location.href='../index.html'">Quay lại</button>
+        </div>
+    </div>
 
     <div class="container">
         <div class="content-area">
@@ -223,56 +278,50 @@
     <script>
         let currentQuestion = 0;
         const questions = [
-            "khobaitap_toan/tsa_toan_cau_1.jpg",
-            "khobaitap_toan/tsa_toan_cau_10.jpg",
-            "khobaitap_toan/tsa_toan_cau_11.jpg",
-            "khobaitap_toan/tsa_toan_cau_12.jpg",
-            "khobaitap_toan/tsa_toan_cau_13.jpg",
-            "khobaitap_toan/tsa_toan_cau_14.jpg",
-            "khobaitap_toan/tsa_toan_cau_15.jpg",
-            "khobaitap_toan/tsa_toan_cau_16.jpg",
-            "khobaitap_toan/tsa_toan_cau_17.jpg",
-            "khobaitap_toan/tsa_toan_cau_18.jpg",
-            "khobaitap_toan/tsa_toan_cau_19.jpg",
-            "khobaitap_toan/tsa_toan_cau_2.jpg",
-            "khobaitap_toan/tsa_toan_cau_20.jpg",
-            "khobaitap_toan/tsa_toan_cau_21.jpg",
-            "khobaitap_toan/tsa_toan_cau_22.jpg",
-            "khobaitap_toan/tsa_toan_cau_23.jpg",
-            "khobaitap_toan/tsa_toan_cau_24.jpg",
-            "khobaitap_toan/tsa_toan_cau_25.jpg",
-            "khobaitap_toan/tsa_toan_cau_26.jpg",
-            "khobaitap_toan/tsa_toan_cau_27.jpg",
-            "khobaitap_toan/tsa_toan_cau_28.jpg",
-            "khobaitap_toan/tsa_toan_cau_29.jpg",
-            "khobaitap_toan/tsa_toan_cau_3.jpg",
-            "khobaitap_toan/tsa_toan_cau_30.jpg",
-            "khobaitap_toan/tsa_toan_cau_31.jpg",
-            "khobaitap_toan/tsa_toan_cau_32.jpg",
-            "khobaitap_toan/tsa_toan_cau_33.jpg",
-            "khobaitap_toan/tsa_toan_cau_34.jpg",
-            "khobaitap_toan/tsa_toan_cau_35.jpg",
-            "khobaitap_toan/tsa_toan_cau_36.jpg",
-            "khobaitap_toan/tsa_toan_cau_4.jpg",
-            "khobaitap_toan/tsa_toan_cau_5.jpg",
-            "khobaitap_toan/tsa_toan_cau_6.jpg",
-            "khobaitap_toan/tsa_toan_cau_7.jpg",
-            "khobaitap_toan/tsa_toan_cau_8.jpg",
-            "khobaitap_toan/tsa_toan_cau_9.jpg"
-        ];
+  "khobaitap_toan/tsa_toan_cau_23.jpg",
+  "khobaitap_toan/tsa_toan_cau_28.jpg",
+  "khobaitap_toan/tsa_toan_cau_19.jpg",
+  "khobaitap_toan/tsa_toan_cau_7.jpg",
+  "khobaitap_toan/tsa_toan_cau_3.jpg",
+  "khobaitap_toan/tsa_toan_cau_29.jpg",
+  "khobaitap_toan/tsa_toan_cau_17.jpg",
+  "khobaitap_toan/tsa_toan_cau_13.jpg",
+  "khobaitap_toan/tsa_toan_cau_5.jpg",
+  "khobaitap_toan/tsa_toan_cau_1.jpg",
+  "khobaitap_toan/tsa_toan_cau_30.jpg",
+  "khobaitap_toan/tsa_toan_cau_24.jpg",
+  "khobaitap_toan/tsa_toan_cau_36.jpg",
+  "khobaitap_toan/tsa_toan_cau_26.jpg",
+  "khobaitap_toan/tsa_toan_cau_32.jpg",
+  "khobaitap_toan/tsa_toan_cau_9.jpg",
+  "khobaitap_toan/tsa_toan_cau_22.jpg",
+  "khobaitap_toan/tsa_toan_cau_34.jpg",
+  "khobaitap_toan/tsa_toan_cau_12.jpg",
+  "khobaitap_toan/tsa_toan_cau_16.jpg",
+  "khobaitap_toan/tsa_toan_cau_4.jpg",
+  "khobaitap_toan/tsa_toan_cau_27.jpg",
+  "khobaitap_toan/tsa_toan_cau_20.jpg",
+  "khobaitap_toan/tsa_toan_cau_18.jpg",
+  "khobaitap_toan/tsa_toan_cau_14.jpg",
+  "khobaitap_toan/tsa_toan_cau_15.jpg",
+  "khobaitap_toan/tsa_toan_cau_6.jpg",
+  "khobaitap_toan/tsa_toan_cau_11.jpg",
+  "khobaitap_toan/tsa_toan_cau_8.jpg",
+  "khobaitap_toan/tsa_toan_cau_31.jpg",
+  "khobaitap_toan/tsa_toan_cau_33.jpg",
+  "khobaitap_toan/tsa_toan_cau_10.jpg",
+  "khobaitap_toan/tsa_toan_cau_21.jpg",
+  "khobaitap_toan/tsa_toan_cau_35.jpg",
+  "khobaitap_toan/tsa_toan_cau_2.jpg",
+  "khobaitap_toan/tsa_toan_cau_25.jpg"
+];
         let answers = new Array(questions.length).fill(['','','','','']);
         let markedQuestions = [];
 
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
-
         function addQuestion(imagePath) {
+            console.log("Adding question with image path:", imagePath);
             const questionContainer = document.getElementById('questionContainer');
-            questionContainer.innerHTML = `<img src="${imagePath}" alt="Câu hỏi">`;
+            questionContainer.innerHTML = `<img src="${imagePath}" alt="Câu hỏi" onerror="console.error('Failed to load image:', this.src)">`;
         }
 
         function createQuestionCircles() {
@@ -292,24 +341,26 @@
             displayCurrentQuestion();
             updateActiveCircle();
         }
+        function hasAnswer(index) {
+            return answers[index].some(answer => answer.trim() !== '');
+        }
 
         function updateActiveCircle() {
             const circles = document.querySelectorAll('.question-circle');
             circles.forEach((circle, index) => {
                 circle.classList.toggle('active', index === currentQuestion);
                 circle.classList.toggle('marked', markedQuestions.includes(index));
+                circle.classList.toggle('answered', hasAnswer(index));
             });
         }
 
         function navigateQuestion(direction) {
-            console.log('Navigating:', direction);
             saveCurrentAnswer();
             if (direction === 'next' && currentQuestion < questions.length - 1) {
                 currentQuestion++;
             } else if (direction === 'prev' && currentQuestion > 0) {
                 currentQuestion--;
             }
-            console.log('Current question:', currentQuestion);
             displayCurrentQuestion();
             updateActiveCircle();
         }
@@ -320,11 +371,13 @@
             inputs.forEach((input, index) => {
                 input.value = answers[currentQuestion][index] || '';
             });
+            updateActiveCircle();
         }
 
         function saveCurrentAnswer() {
             const inputs = document.querySelectorAll('.answer-input');
             answers[currentQuestion] = Array.from(inputs).map(input => input.value);
+            updateActiveCircle();
         }
 
         function toggleMarkQuestion() {
@@ -354,31 +407,50 @@
         }
 
         function initializeQuestions() {
-            shuffleArray(questions);
             createQuestionCircles();
             displayCurrentQuestion();
             updateActiveCircle();
             loadMarkedQuestions();
+            
+            window.onbeforeunload = function() {
+                return "Nếu bạn thoát hoặc tải lại trang, dữ liệu làm bài sẽ bị mất. Bạn có chắc chắn muốn rời khỏi trang?";
+            };
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            initializeQuestions();
-            
+            const savedAnswers = localStorage.getItem('savedAnswers');
+            if (savedAnswers) {
+                document.getElementById('warningModal').style.display = 'block';
+            } else {
+                initializeQuestions();
+            }
+
+            document.getElementById('continueButton').addEventListener('click', function() {
+                localStorage.removeItem('savedAnswers');
+                localStorage.removeItem('savedQuestions');
+                localStorage.removeItem('markedQuestions');
+                document.getElementById('warningModal').style.display = 'none';
+                initializeQuestions();
+            });
+
             document.getElementById('prevButton').addEventListener('click', () => navigateQuestion('prev'));
             document.getElementById('nextButton').addEventListener('click', () => navigateQuestion('next'));
             
             document.getElementById('markQuestionButton').addEventListener('click', toggleMarkQuestion);
 
             document.getElementById('submitButton').addEventListener('click', () => {
-                console.log('Submit button clicked');
                 saveCurrentAnswer();
                 localStorage.setItem('savedAnswers', JSON.stringify(answers));
                 localStorage.setItem('savedQuestions', JSON.stringify(questions));
-                console.log('Answers saved:', answers);
-                console.log('Questions saved:', questions);
                 alert('Bài thi đã được nộp và lưu trữ!');
                 window.location.href = 'luutru_toan_truoc_buoi_1.html';
             });
+        });
+
+        window.addEventListener('beforeunload', function (e) {
+            const message = 'Nếu bạn thoát hoặc tải lại trang, dữ liệu làm bài sẽ bị mất. Bạn có chắc chắn muốn rời khỏi trang?';
+            e.returnValue = message;
+            return message;
         });
     </script>
 </body>
