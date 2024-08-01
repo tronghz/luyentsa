@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Sử Làm Bài</title>
+    <link rel="icon" href="images.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin-top: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 40px;
+            font-size: 3em;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .back-link {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .back-link a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+        }
+
+        .back-link a:hover {
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
+        }
+
+        .day-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .day-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .day-title {
+            color: #4a4a4a;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .day-icon {
+            margin-right: 15px;
+            color: #667eea;
+        }
+
+        .section-title {
+            color: #667eea;
+            font-size: 1.4em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        .task-list {
+            list-style-type: none;
+        }
+
+        .task-item {
+            margin-bottom: 15px;
+        }
+
+        .task-link {
+            color: #4a4a4a;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .task-link:hover {
+            color: #667eea;
+            transform: translateX(10px);
+        }
+
+        .task-icon {
+            margin-right: 10px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            .day-title {
+                font-size: 1.5em;
+            }
+            .task-link {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lịch Sử Làm Bài</h1>
+        <div class="back-link">
+            <a href="index.html"><i class="fas fa-home"></i> Quay lại trang chủ</a>
+        </div>
+        
+        <div class="day-card">
+            <h2 class="day-title"><i class="fas fa-calendar-day day-icon"></i>Ngày 2/8</h2>
+            
+            <h3 class="section-title">Tài liệu trước buổi học</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <a href="toan/lslb_toan_buoi_1.html" class="task-link">
+                        <i class="fas fa-book task-icon"></i> [Toán] Bài toán về khoảng cách
+                    </a>
+                </li>
+            </ul>
+            
+           
+        </div>
+
+        <!-- <div class="day-card">
+            <h2 class="day-title"><i class="fas fa-calendar-day day-icon"></i>Ngày 2/8</h2>
+            
+            <h3 class="section-title">Tài liệu buổi học</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <a href="tailieu1.html" class="task-link">
+                        <i class="fas fa-book task-icon"></i>Tài liệu 1
+                    </a>
+                </li>
+            </ul>
+            
+            <h3 class="section-title">Bài tập về nhà</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <a href="btvn2.html" class="task-link">
+                        <i class="fas fa-pencil-alt task-icon"></i>BTVN số 3
+                    </a>
+                </li>
+            </ul>
+        </div> -->
+
+        <!-- Thêm các ngày khác tương tự nếu cần -->
+
+    </div>
+</body>
+</html>

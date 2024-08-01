@@ -15,7 +15,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #ef5151 0%, #ffffff 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -241,15 +241,15 @@
         <div class="modal-content">
             <p>Nếu bạn làm lại đề này, lịch sử làm bài trước đó sẽ bị xóa</p>
             <button id="continueButton">Tiếp tục</button>
-            <button id="goBackButton" onclick="window.location.href='../index.html'">Quay lại</button>
+            <button id="goBackButton" onclick="window.location.href='../thoi_khoa_bieu.html'">Quay lại</button>
         </div>
     </div>
 
     <div class="container">
         <div class="content-area">
             <div class="top-buttons">
-                <a href="../index.html" class="button">Trang Chủ</a>
-                <button id="markQuestionButton" class="button">Đánh Dấu</button>
+                <a href="../index.html" class="button">Quay Về Trang Chủ</a>
+
             </div>
             <h1>Đề Thi Toán</h1>
             <div id="questionContainer">
@@ -278,43 +278,25 @@
     <script>
         let currentQuestion = 0;
         const questions = [
-  "khobaitap_toan/tsa_toan_cau_23.jpg",
-  "khobaitap_toan/tsa_toan_cau_28.jpg",
-  "khobaitap_toan/tsa_toan_cau_19.jpg",
-  "khobaitap_toan/tsa_toan_cau_7.jpg",
-  "khobaitap_toan/tsa_toan_cau_3.jpg",
-  "khobaitap_toan/tsa_toan_cau_29.jpg",
-  "khobaitap_toan/tsa_toan_cau_17.jpg",
-  "khobaitap_toan/tsa_toan_cau_13.jpg",
-  "khobaitap_toan/tsa_toan_cau_5.jpg",
-  "khobaitap_toan/tsa_toan_cau_1.jpg",
-  "khobaitap_toan/tsa_toan_cau_30.jpg",
-  "khobaitap_toan/tsa_toan_cau_24.jpg",
-  "khobaitap_toan/tsa_toan_cau_36.jpg",
-  "khobaitap_toan/tsa_toan_cau_26.jpg",
-  "khobaitap_toan/tsa_toan_cau_32.jpg",
-  "khobaitap_toan/tsa_toan_cau_9.jpg",
-  "khobaitap_toan/tsa_toan_cau_22.jpg",
-  "khobaitap_toan/tsa_toan_cau_34.jpg",
-  "khobaitap_toan/tsa_toan_cau_12.jpg",
-  "khobaitap_toan/tsa_toan_cau_16.jpg",
-  "khobaitap_toan/tsa_toan_cau_4.jpg",
-  "khobaitap_toan/tsa_toan_cau_27.jpg",
-  "khobaitap_toan/tsa_toan_cau_20.jpg",
-  "khobaitap_toan/tsa_toan_cau_18.jpg",
-  "khobaitap_toan/tsa_toan_cau_14.jpg",
-  "khobaitap_toan/tsa_toan_cau_15.jpg",
-  "khobaitap_toan/tsa_toan_cau_6.jpg",
-  "khobaitap_toan/tsa_toan_cau_11.jpg",
-  "khobaitap_toan/tsa_toan_cau_8.jpg",
-  "khobaitap_toan/tsa_toan_cau_31.jpg",
-  "khobaitap_toan/tsa_toan_cau_33.jpg",
-  "khobaitap_toan/tsa_toan_cau_10.jpg",
-  "khobaitap_toan/tsa_toan_cau_21.jpg",
-  "khobaitap_toan/tsa_toan_cau_35.jpg",
-  "khobaitap_toan/tsa_toan_cau_2.jpg",
-  "khobaitap_toan/tsa_toan_cau_25.jpg"
-];
+        "khobaitap_toan/tsa_b1_toan_1.jpg",
+        "khobaitap_toan/tsa_b1_toan_12.jpg",
+        "khobaitap_toan/tsa_b1_toan_18.jpg",
+        "khobaitap_toan/tsa_b1_toan_2.jpg",
+        "khobaitap_toan/tsa_b1_toan_7.jpg",
+        "khobaitap_toan/tsa_b1_toan_15.jpg",
+        "khobaitap_toan/tsa_b1_toan_5.jpg",
+        "khobaitap_toan/tsa_b1_toan_16.jpg",
+        "khobaitap_toan/tsa_b1_toan_4.jpg",
+        "khobaitap_toan/tsa_b1_toan_10.jpg",
+        "khobaitap_toan/tsa_b1_toan_17.jpg",
+        "khobaitap_toan/tsa_b1_toan_3.jpg",
+        "khobaitap_toan/tsa_b1_toan_8.jpg",
+        "khobaitap_toan/tsa_b1_toan_9.jpg",
+        "khobaitap_toan/tsa_b1_toan_14.jpg",
+        "khobaitap_toan/tsa_b1_toan_6.jpg",
+        "khobaitap_toan/tsa_b1_toan_13.jpg",
+        "khobaitap_toan/tsa_b1_toan_11.jpg"
+        ];
         let answers = new Array(questions.length).fill(['','','','','']);
         let markedQuestions = [];
 
@@ -380,24 +362,6 @@
             updateActiveCircle();
         }
 
-        function toggleMarkQuestion() {
-            const index = currentQuestion;
-            const markedIndex = markedQuestions.indexOf(index);
-            if (markedIndex === -1) {
-                markedQuestions.push(index);
-                alert('Câu hỏi đã được đánh dấu!');
-            } else {
-                markedQuestions.splice(markedIndex, 1);
-                alert('Đã bỏ đánh dấu câu hỏi!');
-            }
-            updateActiveCircle();
-            saveMarkedQuestions();
-        }
-
-        function saveMarkedQuestions() {
-            localStorage.setItem('markedQuestions', JSON.stringify(markedQuestions));
-        }
-
         function loadMarkedQuestions() {
             const saved = localStorage.getItem('markedQuestions');
             if (saved) {
@@ -436,14 +400,14 @@
             document.getElementById('prevButton').addEventListener('click', () => navigateQuestion('prev'));
             document.getElementById('nextButton').addEventListener('click', () => navigateQuestion('next'));
             
-            document.getElementById('markQuestionButton').addEventListener('click', toggleMarkQuestion);
+    
 
             document.getElementById('submitButton').addEventListener('click', () => {
                 saveCurrentAnswer();
                 localStorage.setItem('savedAnswers', JSON.stringify(answers));
                 localStorage.setItem('savedQuestions', JSON.stringify(questions));
                 alert('Bài thi đã được nộp và lưu trữ!');
-                window.location.href = 'luutru_toan_truoc_buoi_1.html';
+                window.location.href = 'lslb_toan_buoi_1.html';
             });
         });
 
