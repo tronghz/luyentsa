@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lý Thuyết Nền Tảng - DGTD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin: 0;
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    padding: 50px;
+    width: 95%;
+    max-width: 1200px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.nav {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.nav-item {
+    margin-right: 20px;
+    text-align: center;
+    color: #ff6b6b;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-item i {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+
+.nav-item.active {
+    border-bottom: 2px solid #ff6b6b;
+    transform: translateY(-3px);
+}
+
+.class-buttons {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.class-button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background: #f0f0f0;
+    color: #333;
+}
+
+.class-button.active {
+    background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.section {
+    background-color: #fff;
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+}
+
+.section:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+}
+
+.section h2 {
+    color: #ff6b6b;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background-color: #ff6b6b;
+}
+
+.menu-item {
+    cursor: pointer;
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+.menu-item:hover {
+    color: #ff6b6b;
+    background-color: #f8f9fa;
+}
+
+.menu-item::before {
+    content: '▶';
+    margin-right: 10px;
+    font-size: 12px;
+    color: #ff6b6b;
+    transition: transform 0.3s ease;
+}
+
+.menu-item.active::before {
+    transform: rotate(90deg);
+}
+
+.sub-menu {
+    display: none;
+    width: 100%;
+    max-width: 300px;
+    margin: 10px 0;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.sub-menu-button {
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+    background-color: transparent;
+    color: #333;
+    text-decoration: none;
+    border: none;
+    border-bottom: 1px solid #e9ecef;
+    text-align: left;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.sub-menu-button:last-child {
+    border-bottom: none;
+}
+
+.sub-menu-button:hover {
+    background-color: #e9ecef;
+    padding-left: 20px;
+}
+
+.sub-menu {
+    display: none;
+    width: 100%;
+    max-width: 300px;
+    margin: 10px 0;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.sub-menu-button {
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+    background-color: transparent;
+    color: #333;
+    text-decoration: none;
+    border: none;
+    border-bottom: 1px solid #e9ecef;
+    text-align: left;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.sub-menu-button:last-child {
+    border-bottom: none;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 30px;
+    }
+
+    .section {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .section h2 {
+        font-size: 20px;
+    }
+
+    .menu-item {
+        font-size: 16px;
+    }
+}
+.home-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #ff6b6b;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.home-button:hover {
+    background-color: #ff8e8e;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.home-button i {
+    margin-right: 8px;
+
+}
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">
+        <i class="fas fa-home"></i>
+        Trang chủ
+    </a>
+    <div class="container">
+        <div class="nav">
+            <div class="nav-item active">
+                <i class="fas fa-flask"></i>
+                <div>Môn Hóa</div>
+            </div>
+        </div>
+
+        <h1>LÝ THUYẾT MÔN HÓA - ĐGĐB BÁCH KHOA</h1>
+
+        <div class="class-buttons">
+            <button id="class12Button" class="class-button active">Lớp 12</button>
+        </div>
+
+        <div id="class12Content" class="content">
+
+            <div class="section">
+                <h2>Phương Pháp, Kĩ Năng Làm Bài</h2>
+                <div class="menu-item" onclick="toggleSubMenu('subMenuA1')">A.1. Phương pháp, kĩ năng làm bài </div>
+                <div id="subMenuA1" class="sub-menu">
+                    <a href="kienthucnentang/a1_1.1.html" class="sub-menu-button">1.1. Phương pháp, kĩ năng làm bài phần Tư Duy Khoa học - Môn Hóa học</a>
+
+                </div>
+                <div class="menu-item" onclick="toggleSubMenu('subMenuA2')">A.2. Công Thức Tính Toán Cơ Bản</div>
+                <div id="subMenuA2" class="sub-menu">
+                    <a href="kienthucnentang/a2_2.1.html" class="sub-menu-button">2.1. MOL</a>
+                    <a href="kienthucnentang/a2_2.2.html" class="sub-menu-button">2.2. TỈ KHỐI CHẤT KHÍ</a>
+                    <a href="kienthucnentang/a2_2.3.html" class="sub-menu-button">2.3. DUNG DỊCH VÀ NỒNG ĐỘ</a>
+                    <a href="kienthucnentang/a2_2.4.html" class="sub-menu-button">2.4. NỒNG ĐỘ DUNG DỊCH</a>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>ESTER - LIPID</h2>
+                <div class="menu-item" onclick="toggleSubMenu('subMenuB1')">B.1. Ester - Lipid</div>
+                <div id="subMenuB1" class="sub-menu">
+                    <a href="kienthucnentang/b1_1.1.html" class="sub-menu-button">1.1. ESTER</a>
+                    <a href="kienthucnentang/b1_1.2.html" class="sub-menu-button">1.2. LIPID</a>
+                </div>
+                <div class="menu-item" onclick="toggleSubMenu('subMenuB2')">B.2. Xà phòng và chất giặt rửa tổng hợp</div>
+                <div id="subMenuB2" class="sub-menu">
+                    <a href="kienthucnentang/b2_2.1.html" class="sub-menu-button">2.1. XÀ PHÒNG</a>
+                    <a href="kienthucnentang/b2_2.2.html" class="sub-menu-button">2.2. CHẤT GIẶT RỬA</a>
+                    <a href="kienthucnentang/b2_2.3.html" class="sub-menu-button">2.3. Ưu điểm và nhược điểm của các loại chất giặt rửa</a>
+                </div>
+            </div>
+        
+            <div class="section">
+                <h2>CARBOHYDRATE</h2>
+                <div class="menu-item" onclick="toggleSubMenu('subMenuC1')">C.1. Glucose và fructose</div>
+                <div id="subMenuC1" class="sub-menu">
+                    <a href="kienthucnentang/c1_1.1.html" class="sub-menu-button">1.1. CẤU TẠO PHÂN TỬ</a>
+                    <a href="kienthucnentang/c1_1.2.html" class="sub-menu-button">1.2. TÍNH CHẤT HÓA HỌC</a>
+                    <a href="kienthucnentang/c1_1.3.html" class="sub-menu-button">1.3. TRẠNG THÁI TỰ NHIÊN VÀ ỨNG DỤNG</a>
+                </div>
+                <div class="menu-item" onclick="toggleSubMenu('subMenuC2')">C.2. Saccharose và maltose</div>
+                <div id="subMenuC2" class="sub-menu">
+                    <a href="kienthucnentang/c2_2.1.html" class="sub-menu-button">2.1. CẤU TẠO PHÂN TỬ</a>
+                    <a href="kienthucnentang/c2_2.2.html" class="sub-menu-button">2.2. TÍNH CHẤT HÓA HỌC CỦA SACCHAROSE</a>
+                    <a href="kienthucnentang/c2_2.3.html" class="sub-menu-button">2.3. TRẠNG THÁI TỰ NHIÊN VÀ ỨNG DỤNG</a>
+                </div>
+                <div class="menu-item" onclick="toggleSubMenu('subMenuC3')">C.3. Tinh bột và cellulose</div>
+                <div id="subMenuC3" class="sub-menu">
+                    <a href="kienthucnentang/c3_3.1.html" class="sub-menu-button">3.1. CẤU TẠO PHÂN TỬ</a>
+                    <a href="kienthucnentang/c3_3.2.html" class="sub-menu-button">3.2. TÍNH CHẤT HÓA HỌC</a>
+                    <a href="kienthucnentang/c3_3.3.html" class="sub-menu-button">3.3. TRẠNG THÁI TỰ NHIÊN VÀ ỨNG DỤNG</a>
+                </div>
+            </div>
+        
+            <div class="section">
+                <h2>HỢP CHẤT CHỨA NITROGEN</h2>
+                <div class="menu-item" onclick="toggleSubMenu('subMenuD1')">D.1. Amine</div>
+                <div id="subMenuD1" class="sub-menu">
+                    <a href="kienthucnentang/d1_1.1.html" class="sub-menu-button">1.1. KHÁI NIỆM, PHÂN LOẠI VÀ DANH PHÁP</a>
+                    <a href="kienthucnentang/d1_1.2.html" class="sub-menu-button">1.2. TÍNH CHẤT VẬT LÍ</a>
+                    <a href="kienthucnentang/d1_1.3.html" class="sub-menu-button">1.3. TÍNH CHẤT HÓA HỌC</a>
+                    <a href="kienthucnentang/d1_1.4.html" class="sub-menu-button">1.4. ỨNG DỤNG VÀ ĐIỀU CHẾ</a>
+                </div>
+                <div class="menu-item" onclick="toggleSubMenu('subMenuD2')">D.2. Amino acid và peptide</div>
+                <div id="subMenuD2" class="sub-menu">
+                    <a href="kienthucnentang/d2_2.1.html" class="sub-menu-button">2.1. KHÁI NIỆM, DANH PHÁP</a>
+                    <a href="kienthucnentang/d2_2.2.html" class="sub-menu-button">2.2. TÍNH CHẤT VẬT LÍ</a>
+                    <a href="kienthucnentang/d2_2.3.html" class="sub-menu-button">2.3. TÍNH CHẤT HÓA HỌC</a>
+                    <a href="kienthucnentang/d2_2.4.html" class="sub-menu-button">2.4. PEPTIDE</a>
+                </div>
+                <div class="menu-item" onclick="toggleSubMenu('subMenuD3')">D.3. Protein và enzyme</div>
+                <div id="subMenuD3" class="sub-menu">
+                    <a href="#" class="sub-menu-button">3.1. PROTEIN</a>
+                </div>
+            </div>
+        
+            <div class="section">
+                <h2>POLYMER</h2>
+                <div class="menu-item" onclick="toggleSubMenu('subMenuE1')">E.1. Đại cương polymer</div>
+                <div id="subMenuE1" class="sub-menu">
+                    <a href="kienthucnentang/e1_1.1.html" class="sub-menu-button">1.1. KHÁI NIỆM VÀ DANH PHÁP</a>
+                    <a href="kienthucnentang/e1_1.2.html" class="sub-menu-button">1.2. TÍNH CHẤT VẬT LÍ</a>
+                    <a href="kienthucnentang/e1_1.3.html" class="sub-menu-button">1.3. TÍNH CHẤT HÓA HỌC</a>
+                    <a href="kienthucnentang/e1_1.4.html" class="sub-menu-button">1.4. ĐIỀU CHẾ</a>
+                </div>
+                <div class="menu-item" onclick="toggleSubMenu('subMenuE2')">E.2. Chất dẻo và vật liệu composite</div>
+                <div id="subMenuE2" class="sub-menu">
+                    <a href="kienthucnentang/e2_2.1.html" class="sub-menu-button">2.1. CHẤT DẺO</a>
+                    <a href="kienthucnentang/e2_2.2.html" class="sub-menu-button">2.2. VẬT LIỆU COMPOSITE</a>
+                </div>
+                <div class="menu-item" onclick="toggleSubMenu('subMenuE3')">E.3. Tơ - Cao su - Keo dán tổng hợp</div>
+                <div id="subMenuE3" class="sub-menu">
+                    <a href="kienthucnentang/e3_3.1.html" class="sub-menu-button">3.1. TƠ</a>
+                    <a href="kienthucnentang/e3_3.2.html" class="sub-menu-button">3.2. CAO SU</a>
+                    <a href="kienthucnentang/e3_3.3.html" class="sub-menu-button">3.3. KEO DÁN</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSubMenu(id) {
+            var subMenu = document.getElementById(id);
+            var menuItem = subMenu.previousElementSibling;
+            
+            if (subMenu.style.display === "none" || subMenu.style.display === "") {
+                subMenu.style.display = "block";
+                menuItem.classList.add('active');
+            } else {
+                subMenu.style.display = "none";
+                menuItem.classList.remove('active');
+            }
+        }
+
+        // Thêm hiệu ứng hover cho các mục menu
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('mouseover', function() {
+                this.style.transform = 'translateX(5px)';
+            });
+            item.addEventListener('mouseout', function() {
+                this.style.transform = 'translateX(0)';
+            });
+        });
+
+        // Thêm hiệu ứng cho nút lớp
+        document.querySelector('.class-button').addEventListener('click', function() {
+            this.classList.add('active');
+        });
+    </script>
+</body>
+</html>

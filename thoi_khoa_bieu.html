@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thời Khóa Biểu</title>
+    <title>Khóa Học Chonghz</title>
     <link rel="icon" href="images.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -15,7 +15,7 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Roboto', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
@@ -26,7 +26,7 @@
 
         .container {
             width: 95%;
-            max-width: 1200px;
+            max-width: 1000px;
             margin-top: 30px;
         }
 
@@ -34,31 +34,36 @@
             text-align: center;
             color: #ffffff;
             margin-bottom: 40px;
-            font-size: 3em;
+            font-size: 3.5em;
             font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: 2px;
         }
 
         .back-link {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         .back-link a {
             color: #ffffff;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1.2em;
+            font-weight: 400;
+            font-size: 1.1em;
             transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
         }
 
         .back-link a:hover {
-            text-shadow: 0 0 10px rgba(255,255,255,0.8);
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
         }
 
         .day-card {
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
             padding: 30px;
             margin-bottom: 30px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -66,27 +71,29 @@
         }
 
         .day-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
         .day-title {
-            color: #4a4a4a;
-            font-size: 1.8em;
-            margin-bottom: 20px;
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 15px;
         }
 
         .day-icon {
             margin-right: 15px;
-            color: #667eea;
+            color: #6a11cb;
         }
 
         .section-title {
-            color: #4f0ee6;
-            font-size: 1.4em;
-            margin-top: 20px;
+            color: #2575fc;
+            font-size: 1.3em;
+            margin-top: 25px;
             margin-bottom: 15px;
         }
 
@@ -99,101 +106,105 @@
         }
 
         .task-link {
-            color: #4a4a4a;
+            color: #333;
             text-decoration: none;
             font-size: 1.1em;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #f5f5f5;
         }
 
         .task-link:hover {
-            color: #667eea;
-            transform: translateX(10px);
+            color: #2575fc;
+            background-color: #e9e9e9;
+            transform: translateX(5px);
         }
 
         .task-icon {
             margin-right: 10px;
-            font-size: 0.9em;
+            font-size: 1em;
+            color: #6a11cb;
         }
 
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.5em;
+                font-size: 2.8em;
             }
             .day-title {
-                font-size: 1.5em;
+                font-size: 1.8em;
             }
             .task-link {
                 font-size: 1em;
             }
         }
-        .today-schedule {
-            background: linear-gradient(135deg, #05fff7 0%, #00f65a 100%);
-            color: #333;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .today-schedule .day-title {
-            color: #333;
-        }
-
-        .today-schedule .section-title {
-            color: #555;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Thời Khóa Biểu</h1>
+        <h1>Khóa Học Chonghz</h1>
         <div class="back-link">
             <a href="index.html"><i class="fas fa-home"></i> Quay lại trang chủ</a>
         </div>
-        <div class="day-card today-schedule">
-            <h2 class="day-title"><i class="fas fa-calendar-day day-icon"></i>Lịch Học Tuần Này</h2>
-            <h3 class="section-title">21h00 2/8 Bài toán về khoảng cách</h3>
-        </div>
-        <div class="day-card">
-            
-            <h2 class="day-title"><i class="fas fa-calendar-day day-icon"></i>Ngày 2/8</h2>
-            
-            <h3 class="section-title">Tài liệu trước buổi học</h3>
+        
+        <!-- <div class="day-card">
+            <h2 class="day-title"><i class="fas fa-calculator day-icon"></i>[Toán] Bài toán về khoảng cách</h2>
+            <h3 class="section-title">Tài Liệu Buổi Học</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <a href="toan/tai_lieu_b1.html" class="task-link">
+                        <i class="fas fa-book task-icon"></i> Click để xem tài liệu
+                    </a>
+                </li>
+            </ul>
+            <h3 class="section-title">Bài Tập Về Nhà</h3>
             <ul class="task-list">
                 <li class="task-item">
                     <a href="toan/toan_buoi_1.html" class="task-link">
-                        <i class="fas fa-book task-icon"></i> [Toán] Bài toán về khoảng cách
-                    </a>
-                </li>
-            </ul>
-            
-            
-        </div>
-<!-- 
-        <div class="day-card">
-            <h2 class="day-title"><i class="fas fa-calendar-day day-icon"></i>Ngày 2/8</h2>
-            
-            <h3 class="section-title">Tài liệu buổi học</h3>
-            <ul class="task-list">
-                <li class="task-item">
-                    <a href="tailieu1.html" class="task-link">
-                        <i class="fas fa-book task-icon"></i>Tài liệu 1
-                    </a>
-                </li>
-            </ul>
-            
-            <h3 class="section-title">Bài tập về nhà</h3>
-            <ul class="task-list">
-                <li class="task-item">
-                    <a href="btvn2.html" class="task-link">
-                        <i class="fas fa-pencil-alt task-icon"></i>BTVN số 3
+                        <i class="fas fa-pencil-alt task-icon"></i> Click để làm bài tập
                     </a>
                 </li>
             </ul>
         </div> -->
 
-        <!-- Thêm các ngày khác tương tự nếu cần -->
+        <div class="day-card">
+            <h2 class="day-title"><i class="fas fa-calculator day-icon"></i>[Mất gốc] - [Hóa học] Liên kết hóa học</h2>
+            <h3 class="section-title">Tài Liệu Buổi Học</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <a href="toan/tai_lieu_b2.html" class="task-link">
+                        <i class="fas fa-book task-icon"></i> Click để xem tài liệu
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="day-card">
+            <h2 class="day-title"><i class="fas fa-calculator day-icon"></i>[HCTK - Quốc Vinh] Chữa đề thi thử BK2007 - Phần Đọc hiểu</h2>
+            <h3 class="section-title">Tài Liệu Buổi Học</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <a href="toan/tai_lieu_b3.html" class="task-link">
+                        <i class="fas fa-book task-icon"></i> Click để xem tài liệu
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="day-card">
+            <h2 class="day-title"><i class="fas fa-calculator day-icon"></i>[HCTK - Quốc Vinh] Chữa bài tập Toán BK1907</h2>
+            <h3 class="section-title">Tài Liệu Buổi Học</h3>
+            <ul class="task-list">
+                <li class="task-item">
+                    <a href="toan/tai_lieu_b4.html" class="task-link">
+                        <i class="fas fa-book task-icon"></i> Click để xem tài liệu
+                    </a>
+                </li>
+            </ul>
+        </div>
+
 
     </div>
 </body>

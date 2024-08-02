@@ -15,7 +15,7 @@ image_files.sort()
 # Đổi tên các file ảnh
 for index, old_name in enumerate(image_files, start=1):
     # Tạo tên mới
-    new_name = f'tsa_b1_toan_{index}.jpg'
+    new_name = f'tai_lieu_buoi_4_{index}.jpg'
     
     # Đường dẫn đầy đủ cho file cũ và mới
     old_path = os.path.join(folder_path, old_name)

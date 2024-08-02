@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đề Thi Toán</title>
+    <link rel="icon" href="images.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .background-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30vw;
+            font-weight: bold;
+            color: rgba(182, 43, 43, 0.1);
+            z-index: -1;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px;
+            width: 95%;
+            max-width: 1200px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+        }
+
+        .content-area {
+            flex: 1;
+            padding-right: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+            font-size: 3em;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #questionContainer {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: auto;
+        }
+
+        #questionContainer img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-circles {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ff6b6b;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .question-circle:hover {
+            transform: scale(1.1);
+            background-color: #ff0000;
+        }
+
+        .question-circle.active {
+            background-color: #66baf6;
+        }
+
+        .question-circle.marked {
+            background-color: #d10cef;
+            border: 2px solid #7a2020;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .button {
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .button:hover {
+            background: linear-gradient(to right, #ff8e8e, #ff6b6b);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .top-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .nav-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .answer-section {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .answer-input {
+            width: 18%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ff6b6b;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+            text-align: center;
+        }
+
+        .answer-input:focus {
+            border-color: #ff8e8e;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .modal-content button {
+            margin: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #ff6b6b;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .modal-content button:hover {
+            background-color: #ff8e8e;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .content-area {
+                padding-right: 0;
+            }
+            .question-circles {
+                margin-top: 20px;
+            }
+        }
+        .question-circle.answered {
+            background-color: #4CAF50; /* Màu xanh lá */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-text">TOÁN</div>
+
+    <div id="warningModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <p>Nếu bạn làm lại đề này, lịch sử làm bài trước đó sẽ bị xóa</p>
+            <button id="continueButton">Tiếp tục</button>
+            <button id="goBackButton" onclick="window.location.href='../thoi_khoa_bieu.html'">Quay lại</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content-area">
+            <div class="top-buttons">
+                <a href="../index.html" class="button">Quay Về Trang Chủ</a>
+
+            </div>
+            <h1>Đề Thi Toán</h1>
+            <div id="questionContainer">
+                <!-- Câu hỏi sẽ được thêm vào đây bằng JavaScript -->
+            </div>
+            <div class="answer-section">
+                <input type="text" class="answer-input">
+                <input type="text" class="answer-input">
+                <input type="text" class="answer-input">
+                <input type="text" class="answer-input">
+                <input type="text" class="answer-input">
+            </div>
+            <div class="navigation-buttons">
+                <div class="nav-group">
+                    <button id="prevButton" class="button">Trước</button>
+                    <button id="nextButton" class="button">Sau</button>
+                </div>
+                <button id="submitButton" class="button">Nộp Bài</button>
+            </div>
+        </div>
+        <div class="question-circles" id="questionCircles">
+            <!-- Các ô tròn sẽ được thêm vào đây bằng JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 0;
+        const questions = [
+  "khotailieu_b4/tai_lieu_buoi_4_1.jpg",
+  "khotailieu_b4/tai_lieu_buoi_4_9.jpg",
+  "khotailieu_b4/tai_lieu_buoi_4_2.jpg",
+  "khotailieu_b4/tai_lieu_buoi_4_3.jpg",
+  "khotailieu_b4/tai_lieu_buoi_4_5.jpg",
+  "khotailieu_b4/tai_lieu_buoi_4_8.jpg",
+  "khotailieu_b4/tai_lieu_buoi_4_6.jpg",
+  "khotailieu_b4/tai_lieu_buoi_4_4.jpg",
+  "khotailieu_b4/tai_lieu_buoi_4_10.jpg",
+  "khotailieu_b4/tai_lieu_buoi_4_7.jpg"
+];
+        let answers = new Array(questions.length).fill(['','','','','']);
+        let markedQuestions = [];
+
+        function addQuestion(imagePath) {
+            console.log("Adding question with image path:", imagePath);
+            const questionContainer = document.getElementById('questionContainer');
+            questionContainer.innerHTML = `<img src="${imagePath}" alt="Câu hỏi" onerror="console.error('Failed to load image:', this.src)">`;
+        }
+
+        function createQuestionCircles() {
+            const circlesContainer = document.getElementById('questionCircles');
+            questions.forEach((_, index) => {
+                const circle = document.createElement('div');
+                circle.className = 'question-circle';
+                circle.textContent = index + 1;
+                circle.onclick = () => goToQuestion(index);
+                circlesContainer.appendChild(circle);
+            });
+        }
+
+        function goToQuestion(index) {
+            saveCurrentAnswer();
+            currentQuestion = index;
+            displayCurrentQuestion();
+            updateActiveCircle();
+        }
+        function hasAnswer(index) {
+            return answers[index].some(answer => answer.trim() !== '');
+        }
+
+        function updateActiveCircle() {
+            const circles = document.querySelectorAll('.question-circle');
+            circles.forEach((circle, index) => {
+                circle.classList.toggle('active', index === currentQuestion);
+                circle.classList.toggle('marked', markedQuestions.includes(index));
+                circle.classList.toggle('answered', hasAnswer(index));
+            });
+        }
+
+        function navigateQuestion(direction) {
+            saveCurrentAnswer();
+            if (direction === 'next' && currentQuestion < questions.length - 1) {
+                currentQuestion++;
+            } else if (direction === 'prev' && currentQuestion > 0) {
+                currentQuestion--;
+            }
+            displayCurrentQuestion();
+            updateActiveCircle();
+        }
+
+        function displayCurrentQuestion() {
+            addQuestion(questions[currentQuestion]);
+            const inputs = document.querySelectorAll('.answer-input');
+            inputs.forEach((input, index) => {
+                input.value = answers[currentQuestion][index] || '';
+            });
+            updateActiveCircle();
+        }
+
+        function saveCurrentAnswer() {
+            const inputs = document.querySelectorAll('.answer-input');
+            answers[currentQuestion] = Array.from(inputs).map(input => input.value);
+            updateActiveCircle();
+        }
+
+        function loadMarkedQuestions() {
+            const saved = localStorage.getItem('markedQuestions');
+            if (saved) {
+                markedQuestions = JSON.parse(saved);
+                updateActiveCircle();
+            }
+        }
+
+        function initializeQuestions() {
+            createQuestionCircles();
+            displayCurrentQuestion();
+            updateActiveCircle();
+            loadMarkedQuestions();
+            
+            window.onbeforeunload = function() {
+                return "Nếu bạn thoát hoặc tải lại trang, dữ liệu làm bài sẽ bị mất. Bạn có chắc chắn muốn rời khỏi trang?";
+            };
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedAnswers = localStorage.getItem('savedAnswers_b4');
+            if (savedAnswers) {
+                document.getElementById('warningModal').style.display = 'block';
+            } else {
+                initializeQuestions();
+            }
+
+            document.getElementById('continueButton').addEventListener('click', function() {
+                localStorage.removeItem('savedAnswers_b4');
+                localStorage.removeItem('savedQuestions_b4');
+                localStorage.removeItem('markedQuestions');
+                document.getElementById('warningModal').style.display = 'none';
+                initializeQuestions();
+            });
+
+            document.getElementById('prevButton').addEventListener('click', () => navigateQuestion('prev'));
+            document.getElementById('nextButton').addEventListener('click', () => navigateQuestion('next'));
+            
+    
+
+            document.getElementById('submitButton').addEventListener('click', () => {
+                saveCurrentAnswer();
+                localStorage.setItem('savedAnswers_b4', JSON.stringify(answers));
+                localStorage.setItem('savedQuestions_b4', JSON.stringify(questions));
+                alert('Bài thi đã được nộp và lưu trữ!');
+                window.location.href = 'lslb_tai_lieu_b4.html';
+            });
+        });
+
+        window.addEventListener('beforeunload', function (e) {
+            const message = 'Nếu bạn thoát hoặc tải lại trang, dữ liệu làm bài sẽ bị mất. Bạn có chắc chắn muốn rời khỏi trang?';
+            e.returnValue = message;
+            return message;
+        });
+    </script>
+</body>
+</html>
