@@ -225,6 +225,16 @@
     backdrop-filter: blur(5px);
     display: none;
 }
+#save-exit-btn {
+    background-color: #27ae60;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+#save-exit-btn:hover {
+    background-color: #2ecc71;
+}
     </style>
 </head>
 <body>
@@ -236,7 +246,7 @@
     
     <div id="mainContent">
         <button id="home-btn" class="btn">Quay lại trang chủ</button>
-        <button id="save-btn" class="btn">Lưu thay đổi</button>
+        <button id="save-exit-btn" class="btn">Lưu & Thoát</button>
         
         <div class="container">
             <div class="document-section">
@@ -359,7 +369,7 @@
                     <h3>Câu hỏi ${index + 1}</h3>
                     <img src="${question}" alt="Câu hỏi ${index + 1}">
                     <div class="answer-boxes">
-                        ${Array(5).fill('<input type="text" class="answer-box" placeholder="">').join('')}
+                        ${Array(5).fill(0).map((_, i) => `<input type="text" class="answer-box" data-box="${i}" placeholder="">`).join('')}
                     </div>
                 `;
                 questionsContainer.appendChild(questionElement);
@@ -367,26 +377,34 @@
         };
 
         const saveData = () => {
-            const allAnswers = [];
-            documents.forEach((doc, docIndex) => {
-                const answers = [];
-                const questionElements = document.querySelectorAll('.question');
-                questionElements.forEach((question, questionIndex) => {
-                    const answerBoxes = question.querySelectorAll('.answer-box');
-                    const questionAnswers = Array.from(answerBoxes).map(box => box.value);
-                    answers.push({
-                        questionNumber: questionIndex + 1,
-                        answers: questionAnswers
-                    });
-                });
-                allAnswers.push({
-                    documentIndex: docIndex,
-                    answers: answers
+            const savedData = JSON.parse(localStorage.getItem('savedAnswers') || '[]');
+            const currentAnswers = [];
+            const questionElements = document.querySelectorAll('.question');
+            
+            questionElements.forEach((question, questionIndex) => {
+                const answerBoxes = question.querySelectorAll('.answer-box');
+                const questionAnswers = Array.from(answerBoxes).map(box => ({
+                    boxIndex: box.dataset.box,
+                    value: box.value
+                }));
+                currentAnswers.push({
+                    questionNumber: questionIndex + 1,
+                    answers: questionAnswers
                 });
             });
-            localStorage.setItem('savedAnswers', JSON.stringify(allAnswers));
+            
+            const existingDocIndex = savedData.findIndex(doc => doc.documentIndex === currentDocumentIndex);
+            if (existingDocIndex !== -1) {
+                savedData[existingDocIndex].answers = currentAnswers;
+            } else {
+                savedData.push({
+                    documentIndex: currentDocumentIndex,
+                    answers: currentAnswers
+                });
+            }
+            
+            localStorage.setItem('savedAnswers', JSON.stringify(savedData));
             hasUnsavedChanges = false;
-            alert('Các thay đổi đã được lưu!');
         };
 
         const loadSavedData = () => {
@@ -394,17 +412,19 @@
             if (savedData) {
                 const allAnswers = JSON.parse(savedData);
                 hasUnsavedChanges = false;
-                allAnswers.forEach((docAnswers, docIndex) => {
-                    if (docIndex === currentDocumentIndex) {
-                        const questionElements = document.querySelectorAll('.question');
-                        docAnswers.answers.forEach((questionAnswer, questionIndex) => {
-                            const answerBoxes = questionElements[questionIndex].querySelectorAll('.answer-box');
-                            questionAnswer.answers.forEach((answer, answerIndex) => {
-                                answerBoxes[answerIndex].value = answer;
-                            });
+                const currentDocAnswers = allAnswers.find(doc => doc.documentIndex === currentDocumentIndex);
+                if (currentDocAnswers) {
+                    const questionElements = document.querySelectorAll('.question');
+                    currentDocAnswers.answers.forEach((questionAnswer, questionIndex) => {
+                        const answerBoxes = questionElements[questionIndex].querySelectorAll('.answer-box');
+                        questionAnswer.answers.forEach((answer) => {
+                            const box = Array.from(answerBoxes).find(b => b.dataset.box === answer.boxIndex);
+                            if (box) {
+                                box.value = answer.value;
+                            }
                         });
-                    }
-                });
+                    });
+                }
             }
         };
 
@@ -415,7 +435,7 @@
             loadPDF(currentDocument.pdf);
             loadQuestions(currentDocument.questions);
             updateNavigationButtons();
-            loadSavedData();
+            loadSavedData(); // Tải dữ liệu đã lưu cho tài liệu hiện tại
         };
 
         const updateNavigationButtons = () => {
@@ -428,6 +448,7 @@
 
         document.getElementById('prev-btn').addEventListener('click', () => {
             if (currentDocumentIndex > 0) {
+                saveCurrentData(); // Lưu dữ liệu hiện tại
                 currentDocumentIndex--;
                 loadCurrentDocument();
             }
@@ -435,12 +456,16 @@
 
         document.getElementById('next-btn').addEventListener('click', () => {
             if (currentDocumentIndex < documents.length - 1) {
+                saveCurrentData(); // Lưu dữ liệu hiện tại
                 currentDocumentIndex++;
                 loadCurrentDocument();
             }
         });
 
-        document.getElementById('save-btn').addEventListener('click', saveData);
+        document.getElementById('save-exit-btn').addEventListener('click', () => {
+            saveData();
+            window.location.href = '../thoi_khoa_bieu.html';
+        });
 
         window.addEventListener('load', loadSavedData);
 
@@ -449,10 +474,10 @@
         document.getElementById('home-btn').addEventListener('click', () => {
             if (hasUnsavedChanges) {
                 if (confirm('Bạn có thay đổi chưa được lưu. Bạn có chắc chắn muốn thoát không?')) {
-                    window.location.href = 'index.html';
+                    window.location.href = '../thoi_khoa_bieu.html';
                 }
             } else {
-                window.location.href = '../index.html';
+                window.location.href = '../thoi_khoa_bieu.html';
             }
         });
         document.addEventListener('input', function(e) {
@@ -510,6 +535,35 @@
             }
         }
 
+        const saveCurrentData = () => {
+            const savedData = JSON.parse(localStorage.getItem('savedAnswers') || '[]');
+            const currentAnswers = [];
+            const questionElements = document.querySelectorAll('.question');
+            
+            questionElements.forEach((question, questionIndex) => {
+                const answerBoxes = question.querySelectorAll('.answer-box');
+                const questionAnswers = Array.from(answerBoxes).map(box => ({
+                    boxIndex: box.dataset.box,
+                    value: box.value
+                }));
+                currentAnswers.push({
+                    questionNumber: questionIndex + 1,
+                    answers: questionAnswers
+                });
+            });
+            
+            const existingDocIndex = savedData.findIndex(doc => doc.documentIndex === currentDocumentIndex);
+            if (existingDocIndex !== -1) {
+                savedData[existingDocIndex].answers = currentAnswers;
+            } else {
+                savedData.push({
+                    documentIndex: currentDocumentIndex,
+                    answers: currentAnswers
+                });
+            }
+            
+            localStorage.setItem('savedAnswers', JSON.stringify(savedData));
+        };
 
     </script>
 </body>

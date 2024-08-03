@@ -317,18 +317,27 @@
     <script>
         let currentQuestion = 0;
         let questions = [
-            "khotailieu_b4/tai_lieu_buoi_4_1.jpg",
-            "khotailieu_b4/tai_lieu_buoi_4_2.jpg",
-            "khotailieu_b4/tai_lieu_buoi_4_3.jpg",
-            "khotailieu_b4/tai_lieu_buoi_4_4.jpg",
-            "khotailieu_b4/tai_lieu_buoi_4_5.jpg",
-            "khotailieu_b4/tai_lieu_buoi_4_6.jpg",
-            "khotailieu_b4/tai_lieu_buoi_4_7.jpg",
-            "khotailieu_b4/tai_lieu_buoi_4_8.jpg",
-            "khotailieu_b4/tai_lieu_buoi_4_9.jpg",
-            "khotailieu_b4/tai_lieu_buoi_4_10.jpg",
-            
-        ];
+  "khotailieu_b5/tai_lieu_b5_1.jpg",
+  "khotailieu_b5/tai_lieu_b5_2.jpg",
+  "khotailieu_b5/tai_lieu_b5_3.jpg",
+  "khotailieu_b5/tai_lieu_b5_4.jpg",
+  "khotailieu_b5/tai_lieu_b5_5.jpg",
+  "khotailieu_b5/tai_lieu_b5_6.jpg",
+  "khotailieu_b5/tai_lieu_b5_7.jpg",
+  "khotailieu_b5/tai_lieu_b5_8.jpg",
+  "khotailieu_b5/tai_lieu_b5_9.jpg",
+  "khotailieu_b5/tai_lieu_b5_10.jpg",
+  "khotailieu_b5/tai_lieu_b5_11.jpg",
+  "khotailieu_b5/tai_lieu_b5_12.jpg",
+  "khotailieu_b5/tai_lieu_b5_13.jpg",
+  "khotailieu_b5/tai_lieu_b5_14.jpg",
+  "khotailieu_b5/tai_lieu_b5_15.jpg",
+  "khotailieu_b5/tai_lieu_b5_16.jpg",
+  "khotailieu_b5/tai_lieu_b5_17.jpg",
+  "khotailieu_b5/tai_lieu_b5_18.jpg",
+  "khotailieu_b5/tai_lieu_b5_19.jpg",
+  "khotailieu_b5/tai_lieu_b5_20.jpg"
+];
         let answers = new Array(questions.length).fill(['','','','','']);
         let markedQuestions = [];
         let hasUnsavedChanges = false;
@@ -468,8 +477,8 @@
         document.addEventListener('MSFullscreenChange', checkFullscreen);
 
         document.addEventListener('DOMContentLoaded', function() {
-            const savedAnswers = localStorage.getItem('savedAnswers');
-            const savedQuestions = localStorage.getItem('savedQuestions');
+            const savedAnswers = localStorage.getItem('savedAnswers_b5');      //thay đổi
+            const savedQuestions = localStorage.getItem('savedQuestions_b5');   //thay đổiđổi
             
             if (savedAnswers && savedQuestions) {
                 answers = JSON.parse(savedAnswers);
@@ -485,8 +494,8 @@
 
             document.getElementById('saveButton').addEventListener('click', () => {
                 saveCurrentAnswer();
-                localStorage.setItem('savedAnswers', JSON.stringify(answers));
-                localStorage.setItem('savedQuestions', JSON.stringify(questions));
+                localStorage.setItem('savedAnswers_b5', JSON.stringify(answers));     //thay đổi
+                localStorage.setItem('savedQuestions_b5', JSON.stringify(questions));    //thay đổi
                 alert('Thay đổi đã được lưu!');
                 hasUnsavedChanges = false;
             });

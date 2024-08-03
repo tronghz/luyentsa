@@ -1,14 +1,23 @@
 import os
 import json
+import re
 
 # Đường dẫn đến thư mục chứa ảnh
-folder_path = r"D:\tool_tong\code\tsa\toan\khotailieu_b3\dochieu_2"
+folder_path = r"D:\tool_tong\code\tsa\toan\khotailieu_b5"
+
+# Hàm để trích xuất số từ tên tệp
+def extract_number(filename):
+    match = re.search(r'_b5_(\d+)\.', filename)
+    return int(match.group(1)) if match else 0
 
 # Lấy danh sách tên file trong thư mục
 image_files = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
 
+# Sắp xếp danh sách tệp theo số
+image_files.sort(key=extract_number)
+
 # Tạo danh sách câu hỏi
-questions = [f"khotailieu_b3/dochieu_2/{image}" for image in image_files]
+questions = [f"khotailieu_b5/{image}" for image in image_files]
 
 # Tạo nội dung JavaScript
 js_content = f"const questions = {json.dumps(questions, indent=2)};"
