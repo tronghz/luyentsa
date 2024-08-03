@@ -3,20 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hiển thị PDF</title>
+    <title>Tài Liệu Ôn Tập Văn - DGTD</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        body, html {
             margin: 0;
             padding: 0;
-            height: 100vh;
-        }
-        embed {
-            width: 100%;
             height: 100%;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+        .container {
+            display: flex;
+            height: 100%;
+        }
+        .document-section, .questions-section {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .document-section {
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .questions-section {
+            background-color: #f8f9fa;
+        }
+        .question {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .question:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 2.5em;
+        }
+        #pdf-viewer {
+            width: 100%;
+            overflow-y: auto;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            background-color: rgba(255,255,255,0.95);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            bottom: 0;
+        }
+        .btn {
+            padding: 12px 25px;
+            margin: 0 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        #submit-btn {
+            background-color: #e74c3c;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        #submit-btn:hover {
+            background-color: #c0392b;
+        }
+        .answer-boxes {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        .answer-box {
+            width: 18%;
+            height: 40px;
+            border: 2px solid #bdc3c7;
+            border-radius: 20px;
+            padding: 5px 15px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+        .answer-box:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.25);
+        }
+        h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5em;
         }
     </style>
 </head>
 <body>
-    <embed src="khobaitap_toan_buoi1/toan_b1.pdf" type="application/pdf" />
+    <div class="container">
+        <div class="document-section">
+            <h1>Tư liệu</h1>
+            <div id="pdf-viewer"></div>
+            <div class="navigation">
+                <button id="prev-btn" class="btn">&#8592; Tài liệu trước</button>
+                <button id="next-btn" class="btn">Tài liệu tiếp &#8594;</button>
+            </div>
+        </div>
+        <div class="questions-section">
+            <h1>Câu hỏi</h1>
+            <div id="questions"></div>
+        </div>
+    </div>
+    <button id="submit-btn" class="btn">Nộp bài</button>
+
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.worker.min.js';
+
+        const documents = [
+            {
+                pdf: 'khotailieu_b3/dochieu_1/dochieu_1.pdf',
+                questions: [
+                "khotailieu_b3/dochieu_1/dochieu1_1.jpg",
+  "khotailieu_b3/dochieu_1/dochieu1_2.jpg",
+  "khotailieu_b3/dochieu_1/dochieu1_3.jpg",
+  "khotailieu_b3/dochieu_1/dochieu1_4.jpg",
+  "khotailieu_b3/dochieu_1/dochieu1_5.jpg",
+  "khotailieu_b3/dochieu_1/dochieu1_6.jpg",
+  "khotailieu_b3/dochieu_1/dochieu1_7.jpg",
+  "khotailieu_b3/dochieu_1/dochieu1_8.jpg",
+  "khotailieu_b3/dochieu_1/dochieu1_9.jpg",
+  "khotailieu_b3/dochieu_1/dochieu1_10.jpg",
+                ]
+            },
+            {
+                pdf: 'khotailieu_b3/dochieu_2/dochieu_2.pdf',
+                questions: [
+    "khotailieu_b3/dochieu_2/dochieu2_1.jpg",
+  "khotailieu_b3/dochieu_2/dochieu2_2.jpg",
+  "khotailieu_b3/dochieu_2/dochieu2_3.jpg",
+  "khotailieu_b3/dochieu_2/dochieu2_4.jpg",
+  "khotailieu_b3/dochieu_2/dochieu2_5.jpg",
+  "khotailieu_b3/dochieu_2/dochieu2_6.jpg",
+  "khotailieu_b3/dochieu_2/dochieu2_7.jpg",
+  "khotailieu_b3/dochieu_2/dochieu2_8.jpg",
+  "khotailieu_b3/dochieu_2/dochieu2_9.jpg",
+  "khotailieu_b3/dochieu_2/dochieu2_10.jpg",
+                ]
+            },
+            {
+                pdf: 'khotailieu_b3/dochieu_3/dochieu_3.pdf',
+                questions: [
+                "khotailieu_b3/dochieu_3/dochieu3_1.jpg",
+  "khotailieu_b3/dochieu_3/dochieu3_2.jpg",
+  "khotailieu_b3/dochieu_3/dochieu3_3.jpg",
+  "khotailieu_b3/dochieu_3/dochieu3_4.jpg",
+  "khotailieu_b3/dochieu_3/dochieu3_5.jpg",
+  "khotailieu_b3/dochieu_3/dochieu3_6.jpg",
+  "khotailieu_b3/dochieu_3/dochieu3_7.jpg",
+  "khotailieu_b3/dochieu_3/dochieu3_8.jpg",
+  "khotailieu_b3/dochieu_3/dochieu3_9.jpg",
+  "khotailieu_b3/dochieu_3/dochieu3_10.jpg",
+                ]
+            },
+            {
+                pdf: 'khotailieu_b3/dochieu_4/dochieu_4.pdf',
+                questions: [
+                "khotailieu_b3/dochieu_4/dochieu4_1.jpg",
+  "khotailieu_b3/dochieu_4/dochieu4_2.jpg",
+  "khotailieu_b3/dochieu_4/dochieu4_3.jpg",
+  "khotailieu_b3/dochieu_4/dochieu4_4.jpg",
+  "khotailieu_b3/dochieu_4/dochieu4_5.jpg",
+  "khotailieu_b3/dochieu_4/dochieu4_6.jpg",
+  "khotailieu_b3/dochieu_4/dochieu4_7.jpg",
+  "khotailieu_b3/dochieu_4/dochieu4_8.jpg",
+  "khotailieu_b3/dochieu_4/dochieu4_9.jpg",
+  "khotailieu_b3/dochieu_4/dochieu4_10.jpg",
+                ]
+            },
+        ];
+
+        let currentDocumentIndex = 0;
+
+        const loadPDF = async (url) => {
+            const loadingTask = pdfjsLib.getDocument(url);
+            const pdf = await loadingTask.promise;
+            const container = document.getElementById('pdf-viewer');
+            container.innerHTML = '';
+
+            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                const page = await pdf.getPage(pageNum);
+                const scale = 1.5;
+                const viewport = page.getViewport({ scale });
+
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+
+                await page.render(renderContext);
+                container.appendChild(canvas);
+            }
+        };
+
+        const loadQuestions = (questions) => {
+            const questionsContainer = document.getElementById('questions');
+            questionsContainer.innerHTML = '';
+            questions.forEach((question, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'question';
+                questionElement.innerHTML = `
+                    <h3>Câu hỏi ${index + 1}</h3>
+                    <img src="${question}" alt="Câu hỏi ${index + 1}">
+                    <div class="answer-boxes">
+                        ${Array(5).fill('<input type="text" class="answer-box" placeholder="">').join('')}
+                    </div>
+                `;
+                questionsContainer.appendChild(questionElement);
+            });
+        };
+
+        const loadCurrentDocument = () => {
+            const currentDocument = documents[currentDocumentIndex];
+            loadPDF(currentDocument.pdf);
+            loadQuestions(currentDocument.questions);
+        };
+
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            if (currentDocumentIndex > 0) {
+                currentDocumentIndex--;
+                loadCurrentDocument();
+            }
+        });
+
+        document.getElementById('next-btn').addEventListener('click', () => {
+            if (currentDocumentIndex < documents.length - 1) {
+                currentDocumentIndex++;
+                loadCurrentDocument();
+            }
+        });
+
+        document.getElementById('submit-btn').addEventListener('click', () => {
+            const allSubmissions = [];
+
+            documents.forEach((doc, docIndex) => {
+                const answers = [];
+                const questionElements = document.querySelectorAll('.question');
+                
+                questionElements.forEach((question, questionIndex) => {
+                    const questionAnswers = [];
+                    const answerBoxes = question.querySelectorAll('.answer-box');
+                    answerBoxes.forEach((box) => {
+                        questionAnswers.push(box.value);
+                    });
+                    answers.push({
+                        questionNumber: questionIndex + 1,
+                        answers: questionAnswers
+                    });
+                });
+
+                allSubmissions.push({
+                    documentIndex: docIndex,
+                    answers: answers
+                });
+            });
+
+            const submissionData = {
+                allSubmissions: allSubmissions,
+                timestamp: new Date().toISOString()
+            };
+
+            localStorage.setItem('latestSubmission', JSON.stringify(submissionData));
+
+            alert('Bài làm của bạn đã được nộp và lưu trữ!');
+            
+            window.location.href = 'lslb_tai_lieu_b3.html';
+        });
+
+        loadCurrentDocument();
+    </script>
 </body>
 </html>

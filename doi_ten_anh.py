@@ -1,7 +1,7 @@
 import os
 
 # Đường dẫn đến thư mục chứa ảnh
-folder_path = r"C:\Users\Welcome\OneDrive\Hình ảnh\Ảnh chụp màn hình"
+folder_path = r"D:\tool_tong\code\tsa\toan\khotailieu_b3\dochieu_4"
 
 # Lấy danh sách tất cả các file trong thư mục
 files = os.listdir(folder_path)
@@ -15,7 +15,7 @@ image_files.sort()
 # Đổi tên các file ảnh
 for index, old_name in enumerate(image_files, start=1):
     # Tạo tên mới
-    new_name = f'tai_lieu_buoi_4_{index}.jpg'
+    new_name = f'dochieu4_{index}.jpg'
     
     # Đường dẫn đầy đủ cho file cũ và mới
     old_path = os.path.join(folder_path, old_name)
