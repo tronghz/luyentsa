@@ -5,8 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đề Thi Toán</title>
     <link rel="icon" href="images.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #ff4d6d;
+            --primary-light: #ff758f;
+            --primary-dark: #c9184a;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,13 +20,13 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #fff0f3 0%, #ffb3c1 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 20px;
+            padding: 20px;
             position: relative;
             overflow-x: hidden;
         }
@@ -29,42 +35,35 @@
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 30vw;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 20vw;
             font-weight: bold;
-            color: rgba(182, 43, 43, 0.1);
+            color: rgba(255, 77, 109, 0.05);
             z-index: -1;
             pointer-events: none;
             white-space: nowrap;
         }
 
         .container {
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 30px;
-            padding: 50px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 30px;
             width: 95%;
-            max-width: 1200px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-            margin-top: 30px;
+            max-width: 1000px;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.1);
+            margin-top: 20px;
             position: relative;
             z-index: 1;
-            display: flex;
-        }
-
-        .content-area {
-            flex: 1;
-            padding-right: 20px;
             display: flex;
             flex-direction: column;
         }
 
         h1 {
             text-align: center;
-            color: #333;
-            margin-bottom: 40px;
-            font-size: 3em;
+            color: var(--primary-dark);
+            margin-bottom: 30px;
+            font-size: 2.5em;
             font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         #questionContainer {
@@ -73,51 +72,58 @@
             margin-bottom: 20px;
             position: relative;
             overflow: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.05);
         }
 
         #questionContainer img {
             max-width: 100%;
             height: auto;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
         }
 
         .question-circles {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(10, 1fr);
             gap: 10px;
             padding: 20px;
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: #fff0f3;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.05);
         }
 
         .question-circle {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-color: #ff6b6b;
+            background-color: #ffb3c1;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #fff;
-            font-weight: bold;
+            color: #000000;
+            font-weight: 500;
             transition: all 0.3s ease;
         }
 
         .question-circle:hover {
             transform: scale(1.1);
-            background-color: #ff0000;
+            background-color: var(--primary-light);
         }
 
         .question-circle.active {
-            background-color: #66baf6;
+            background-color: var(--primary-color);
+            color: #fff;
         }
 
         .question-circle.marked {
-            background-color: #d10cef;
-            border: 2px solid #7a2020;
+            background-color: #ffd6e0;
+            color: #c9184a;
+        }
+
+        .question-circle.answered {
+            background-color: #39ff23;
+            color: #000000;
         }
 
         .navigation-buttons {
@@ -127,24 +133,59 @@
         }
 
         .button {
-            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+            background: var(--primary-color);
             border: none;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 25px;
             color: #fff;
             font-size: 1em;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
             text-decoration: none;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.2);
+            position: relative;
+            overflow: hidden;
         }
 
         .button:hover {
-            background: linear-gradient(to right, #ff8e8e, #ff6b6b);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 93, 93, 0.418);
+        }
+
+        .button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(17, 235, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 1;
+            }
+            20% {
+                transform: scale(25, 25);
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(40, 40);
+            }
+        }
+
+        .button:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
         }
 
         .top-buttons {
@@ -167,86 +208,84 @@
 
         .answer-input {
             width: 18%;
-            padding: 10px;
+            padding: 12px;
             font-size: 16px;
-            border: 2px solid #ff6b6b;
-            border-radius: 5px;
+            border: 2px solid #ffb3c1;
+            border-radius: 8px;
             outline: none;
             transition: border-color 0.3s;
             text-align: center;
         }
 
         .answer-input:focus {
-            border-color: #ff8e8e;
+            border-color: var(--primary-color);
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.4);
-        }
+        .fullscreen-prompt {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 400px;
+    padding: 30px;
+    background-color: rgba(255, 77, 109, 0.9); /* Màu hồng với độ trong suốt nhẹ */
+    color: white;
+    z-index: 9999;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+}
 
-        .modal-content {
-            background-color: #fff;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
-            border-radius: 10px;
-            text-align: center;
-        }
+.fullscreen-prompt h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
 
-        .modal-content button {
-            margin: 10px;
-            padding: 10px 20px;
-            cursor: pointer;
-            background-color: #ff6b6b;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
+.fullscreen-prompt .button {
+    padding: 12px 24px;
+    font-size: 18px;
+    background-color: white;
+    color: #ff4d6d;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-        .modal-content button:hover {
-            background-color: #ff8e8e;
-        }
+.fullscreen-prompt .button:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
 
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-            .content-area {
-                padding-right: 0;
-            }
-            .question-circles {
-                margin-top: 20px;
-            }
-        }
-        .question-circle.answered {
-            background-color: #4CAF50; /* Màu xanh lá */
-        }
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Điều chỉnh độ trong suốt ở đây */
+    z-index: 9998;
+    backdrop-filter: blur(5px); /* Tạo hiệu ứng mờ */
+}
+
+
+
     </style>
 </head>
 
 <body>
-    <div class="background-text">TOÁN</div>
+    <div id="overlay" class="overlay"></div>
+<div id="fullscreenPrompt" class="fullscreen-prompt">
+    <h2>Vui lòng chuyển sang chế độ toàn màn hình để bắt đầu</h2>
+    <button id="fullscreenButton" class="button">Toàn Màn Hình</button>
+</div>
 
-    <div id="warningModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <p>Nếu bạn làm lại đề này, lịch sử làm bài trước đó sẽ bị xóa</p>
-            <button id="continueButton">Tiếp tục</button>
-            <button id="goBackButton" onclick="window.location.href='../thoi_khoa_bieu.html'">Quay lại</button>
-        </div>
-    </div>
+    <div id="mainContent" class="hidden">
+        <div class="background-text">TOÁN</div>
 
-    <div class="container">
-        <div class="content-area">
+        <div class="container">
             <div class="top-buttons">
                 <a href="../index.html" class="button">Quay Về Trang Chủ</a>
 
@@ -256,41 +295,43 @@
                 <!-- Câu hỏi sẽ được thêm vào đây bằng JavaScript -->
             </div>
             <div class="answer-section">
-                <input type="text" class="answer-input">
-                <input type="text" class="answer-input">
-                <input type="text" class="answer-input">
-                <input type="text" class="answer-input">
-                <input type="text" class="answer-input">
+                <input type="text" class="answer-input" placeholder="...">
+                <input type="text" class="answer-input" placeholder="...">
+                <input type="text" class="answer-input" placeholder="...">
+                <input type="text" class="answer-input" placeholder="...">
+                <input type="text" class="answer-input" placeholder="...">
             </div>
             <div class="navigation-buttons">
                 <div class="nav-group">
                     <button id="prevButton" class="button">Trước</button>
                     <button id="nextButton" class="button">Sau</button>
                 </div>
-                <button id="submitButton" class="button">Nộp Bài</button>
+                <button id="saveButton" class="button">Lưu Thay Đổi</button>
             </div>
-        </div>
-        <div class="question-circles" id="questionCircles">
-            <!-- Các ô tròn sẽ được thêm vào đây bằng JavaScript -->
+            <div class="question-circles" id="questionCircles">
+                <!-- Các ô tròn sẽ được thêm vào đây bằng JavaScript -->
+            </div>
         </div>
     </div>
 
     <script>
         let currentQuestion = 0;
-        const questions = [
-  "khotailieu_b4/tai_lieu_buoi_4_1.jpg",
-  "khotailieu_b4/tai_lieu_buoi_4_9.jpg",
-  "khotailieu_b4/tai_lieu_buoi_4_2.jpg",
-  "khotailieu_b4/tai_lieu_buoi_4_3.jpg",
-  "khotailieu_b4/tai_lieu_buoi_4_5.jpg",
-  "khotailieu_b4/tai_lieu_buoi_4_8.jpg",
-  "khotailieu_b4/tai_lieu_buoi_4_6.jpg",
-  "khotailieu_b4/tai_lieu_buoi_4_4.jpg",
-  "khotailieu_b4/tai_lieu_buoi_4_10.jpg",
-  "khotailieu_b4/tai_lieu_buoi_4_7.jpg"
-];
+        let questions = [
+            "khotailieu_b4/tai_lieu_buoi_4_1.jpg",
+            "khotailieu_b4/tai_lieu_buoi_4_2.jpg",
+            "khotailieu_b4/tai_lieu_buoi_4_3.jpg",
+            "khotailieu_b4/tai_lieu_buoi_4_4.jpg",
+            "khotailieu_b4/tai_lieu_buoi_4_5.jpg",
+            "khotailieu_b4/tai_lieu_buoi_4_6.jpg",
+            "khotailieu_b4/tai_lieu_buoi_4_7.jpg",
+            "khotailieu_b4/tai_lieu_buoi_4_8.jpg",
+            "khotailieu_b4/tai_lieu_buoi_4_9.jpg",
+            "khotailieu_b4/tai_lieu_buoi_4_10.jpg",
+            
+        ];
         let answers = new Array(questions.length).fill(['','','','','']);
         let markedQuestions = [];
+        let hasUnsavedChanges = false;
 
         function addQuestion(imagePath) {
             console.log("Adding question with image path:", imagePath);
@@ -315,6 +356,7 @@
             displayCurrentQuestion();
             updateActiveCircle();
         }
+
         function hasAnswer(index) {
             return answers[index].some(answer => answer.trim() !== '');
         }
@@ -352,6 +394,7 @@
             const inputs = document.querySelectorAll('.answer-input');
             answers[currentQuestion] = Array.from(inputs).map(input => input.value);
             updateActiveCircle();
+            hasUnsavedChanges = true;
         }
 
         function loadMarkedQuestions() {
@@ -366,48 +409,128 @@
             createQuestionCircles();
             displayCurrentQuestion();
             updateActiveCircle();
-            loadMarkedQuestions();
-            
-            window.onbeforeunload = function() {
-                return "Nếu bạn thoát hoặc tải lại trang, dữ liệu làm bài sẽ bị mất. Bạn có chắc chắn muốn rời khỏi trang?";
-            };
         }
 
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) {
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                }
+            }
+        }
+
+        function exitFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        }
+
+        function checkFullscreen() {
+    const fullscreenPrompt = document.getElementById('fullscreenPrompt');
+    const mainContent = document.getElementById('mainContent');
+    const overlay = document.getElementById('overlay');
+
+    if (document.fullscreenElement) {
+        fullscreenPrompt.style.display = 'none';
+        overlay.style.display = 'none';
+        mainContent.style.display = 'block';
+    } else {
+        fullscreenPrompt.style.display = 'flex';
+        overlay.style.display = 'block';
+        mainContent.style.display = 'block'; // Hiển thị nội dung chính
+    }
+}
+
+        document.getElementById('fullscreenButton').addEventListener('click', () => {
+            toggleFullscreen();
+            checkFullscreen();
+        });
+
+        // Gọi checkFullscreen khi trang được tải
+        document.addEventListener('DOMContentLoaded', checkFullscreen);
+
+        // Các sự kiện fullscreen khác vẫn giữ nguyên
+        document.addEventListener('fullscreenchange', checkFullscreen);
+        document.addEventListener('webkitfullscreenchange', checkFullscreen);
+        document.addEventListener('mozfullscreenchange', checkFullscreen);
+        document.addEventListener('MSFullscreenChange', checkFullscreen);
+
         document.addEventListener('DOMContentLoaded', function() {
-            const savedAnswers = localStorage.getItem('savedAnswers_b4');
-            if (savedAnswers) {
-                document.getElementById('warningModal').style.display = 'block';
+            const savedAnswers = localStorage.getItem('savedAnswers');
+            const savedQuestions = localStorage.getItem('savedQuestions');
+            
+            if (savedAnswers && savedQuestions) {
+                answers = JSON.parse(savedAnswers);
+                questions = JSON.parse(savedQuestions);
+                loadMarkedQuestions();
+                initializeQuestions();
             } else {
                 initializeQuestions();
             }
 
-            document.getElementById('continueButton').addEventListener('click', function() {
-                localStorage.removeItem('savedAnswers_b4');
-                localStorage.removeItem('savedQuestions_b4');
-                localStorage.removeItem('markedQuestions');
-                document.getElementById('warningModal').style.display = 'none';
-                initializeQuestions();
-            });
-
             document.getElementById('prevButton').addEventListener('click', () => navigateQuestion('prev'));
             document.getElementById('nextButton').addEventListener('click', () => navigateQuestion('next'));
-            
-    
 
-            document.getElementById('submitButton').addEventListener('click', () => {
+            document.getElementById('saveButton').addEventListener('click', () => {
                 saveCurrentAnswer();
-                localStorage.setItem('savedAnswers_b4', JSON.stringify(answers));
-                localStorage.setItem('savedQuestions_b4', JSON.stringify(questions));
-                alert('Bài thi đã được nộp và lưu trữ!');
-                window.location.href = 'lslb_tai_lieu_b4.html';
+                localStorage.setItem('savedAnswers', JSON.stringify(answers));
+                localStorage.setItem('savedQuestions', JSON.stringify(questions));
+                alert('Thay đổi đã được lưu!');
+                hasUnsavedChanges = false;
+            });
+
+            document.querySelectorAll('.answer-input').forEach(input => {
+                input.addEventListener('input', () => {
+                    hasUnsavedChanges = true;
+                });
+            });
+
+            document.getElementById('fullscreenButton').addEventListener('click', toggleFullscreen);
+            document.getElementById('exitFullscreenButton').addEventListener('click', exitFullscreen);
+        });
+
+        document.addEventListener('fullscreenchange', checkFullscreen);
+        document.addEventListener('webkitfullscreenchange', checkFullscreen);
+        document.addEventListener('mozfullscreenchange', checkFullscreen);
+        document.addEventListener('MSFullscreenChange', checkFullscreen);
+
+        window.addEventListener('beforeunload', function (e) {
+            if (hasUnsavedChanges) {
+                const message = 'Các thay đổi bạn đã thực hiện có thể không được lưu.';
+                e.returnValue = message;
+                return message;
+            }
+        });
+
+        document.querySelectorAll('.button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                let x = e.clientX - e.target.offsetLeft;
+                let y = e.clientY - e.target.offsetTop;
+
+                let ripples = document.createElement('span');
+                ripples.style.left = x + 'px';
+                ripples.style.top = y + 'px';
+                this.appendChild(ripples);
+
+                setTimeout(() => {
+                    ripples.remove()
+                }, 1000);
             });
         });
 
-        window.addEventListener('beforeunload', function (e) {
-            const message = 'Nếu bạn thoát hoặc tải lại trang, dữ liệu làm bài sẽ bị mất. Bạn có chắc chắn muốn rời khỏi trang?';
-            e.returnValue = message;
-            return message;
-        });
+        // Kiểm tra trạng thái toàn màn hình khi tải trang
+        checkFullscreen();
     </script>
 </body>
-</html>
