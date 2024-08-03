@@ -342,7 +342,7 @@
         function addQuestion(imagePath) {
             console.log("Adding question with image path:", imagePath);
             const questionContainer = document.getElementById('questionContainer');
-            questionContainer.innerHTML = `<img src="${imagePath}" alt="Câu hỏi" onerror="console.error('Failed to load image:', this.src)">`;
+            questionContainer.innerHTML = `<img src="${imagePath}" alt="Câu hỏi" onerror="this.onerror=null; this.src='path/to/fallback-image.jpg'; console.error('Failed to load image:', this.src)">`;
         }
 
         function createQuestionCircles() {
@@ -364,7 +364,7 @@
         }
 
         function hasAnswer(index) {
-            return answers[index].some(answer => answer.trim() !== '');
+            return Array.isArray(answers[index]) && answers[index].some(answer => answer.trim() !== '');
         }
 
         function updateActiveCircle() {
