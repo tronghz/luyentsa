@@ -286,10 +286,7 @@
         <div class="background-text">TOÁN</div>
 
         <div class="container">
-            <div class="top-buttons">
-                <a href="../index.html" class="button">Quay Về Trang Chủ</a>
-
-            </div>
+            
             <h1>Đề Thi Toán</h1>
             <div id="questionContainer">
                 <!-- Câu hỏi sẽ được thêm vào đây bằng JavaScript -->
@@ -306,7 +303,7 @@
                     <button id="prevButton" class="button">Trước</button>
                     <button id="nextButton" class="button">Sau</button>
                 </div>
-                <button id="saveButton" class="button">Lưu Thay Đổi</button>
+                <button id="saveAndExitButton" class="button">Lưu và Thoát</button>
             </div>
             <div class="question-circles" id="questionCircles">
                 <!-- Các ô tròn sẽ được thêm vào đây bằng JavaScript -->
@@ -317,26 +314,16 @@
     <script>
         let currentQuestion = 0;
         let questions = [
-  "khotailieu_b5/tai_lieu_b5_1.jpg",
-  "khotailieu_b5/tai_lieu_b5_2.jpg",
-  "khotailieu_b5/tai_lieu_b5_3.jpg",
-  "khotailieu_b5/tai_lieu_b5_4.jpg",
-  "khotailieu_b5/tai_lieu_b5_5.jpg",
-  "khotailieu_b5/tai_lieu_b5_6.jpg",
-  "khotailieu_b5/tai_lieu_b5_7.jpg",
-  "khotailieu_b5/tai_lieu_b5_8.jpg",
-  "khotailieu_b5/tai_lieu_b5_9.jpg",
-  "khotailieu_b5/tai_lieu_b5_10.jpg",
-  "khotailieu_b5/tai_lieu_b5_11.jpg",
-  "khotailieu_b5/tai_lieu_b5_12.jpg",
-  "khotailieu_b5/tai_lieu_b5_13.jpg",
-  "khotailieu_b5/tai_lieu_b5_14.jpg",
-  "khotailieu_b5/tai_lieu_b5_15.jpg",
-  "khotailieu_b5/tai_lieu_b5_16.jpg",
-  "khotailieu_b5/tai_lieu_b5_17.jpg",
-  "khotailieu_b5/tai_lieu_b5_18.jpg",
-  "khotailieu_b5/tai_lieu_b5_19.jpg",
-  "khotailieu_b5/tai_lieu_b5_20.jpg"
+        "khotailieu_b4/tai_lieu_buoi_4_1.jpg",
+            "khotailieu_b4/tai_lieu_buoi_4_2.jpg",
+            "khotailieu_b4/tai_lieu_buoi_4_3.jpg",
+            "khotailieu_b4/tai_lieu_buoi_4_4.jpg",
+            "khotailieu_b4/tai_lieu_buoi_4_5.jpg",
+            "khotailieu_b4/tai_lieu_buoi_4_6.jpg",
+            "khotailieu_b4/tai_lieu_buoi_4_7.jpg",
+            "khotailieu_b4/tai_lieu_buoi_4_8.jpg",
+            "khotailieu_b4/tai_lieu_buoi_4_9.jpg",
+            "khotailieu_b4/tai_lieu_buoi_4_10.jpg",
 ];
         let answers = new Array(questions.length).fill(['','','','','']);
         let markedQuestions = [];
@@ -345,7 +332,7 @@
         function addQuestion(imagePath) {
             console.log("Adding question with image path:", imagePath);
             const questionContainer = document.getElementById('questionContainer');
-            questionContainer.innerHTML = `<img src="${imagePath}" alt="Câu hỏi" onerror="console.error('Failed to load image:', this.src)">`;
+            questionContainer.innerHTML = `<img src="${imagePath}" alt="Câu hỏi" onerror="this.onerror=null; this.src='path/to/fallback-image.jpg'; console.error('Failed to load image:', this.src)">`;
         }
 
         function createQuestionCircles() {
@@ -367,7 +354,7 @@
         }
 
         function hasAnswer(index) {
-            return answers[index].some(answer => answer.trim() !== '');
+            return Array.isArray(answers[index]) && answers[index].some(answer => answer.trim() !== '');
         }
 
         function updateActiveCircle() {
@@ -407,7 +394,7 @@
         }
 
         function loadMarkedQuestions() {
-            const saved = localStorage.getItem('markedQuestions');
+            const saved = localStorage.getItem('markedQuestions_b4');  //abc
             if (saved) {
                 markedQuestions = JSON.parse(saved);
                 updateActiveCircle();
@@ -477,8 +464,8 @@
         document.addEventListener('MSFullscreenChange', checkFullscreen);
 
         document.addEventListener('DOMContentLoaded', function() {
-            const savedAnswers = localStorage.getItem('savedAnswers_b5');      //thay đổi
-            const savedQuestions = localStorage.getItem('savedQuestions_b5');   //thay đổiđổi
+            const savedAnswers = localStorage.getItem('savedAnswers_b4');      //abc
+            const savedQuestions = localStorage.getItem('savedQuestions_b4');   //abc
             
             if (savedAnswers && savedQuestions) {
                 answers = JSON.parse(savedAnswers);
@@ -492,12 +479,14 @@
             document.getElementById('prevButton').addEventListener('click', () => navigateQuestion('prev'));
             document.getElementById('nextButton').addEventListener('click', () => navigateQuestion('next'));
 
-            document.getElementById('saveButton').addEventListener('click', () => {
+            document.getElementById('saveAndExitButton').addEventListener('click', () => {
                 saveCurrentAnswer();
-                localStorage.setItem('savedAnswers_b5', JSON.stringify(answers));     //thay đổi
-                localStorage.setItem('savedQuestions_b5', JSON.stringify(questions));    //thay đổi
-                alert('Thay đổi đã được lưu!');
+                localStorage.setItem('savedAnswers_b4', JSON.stringify(answers)); //abc
+                localStorage.setItem('savedQuestions_b4', JSON.stringify(questions)); //abc
+                
                 hasUnsavedChanges = false;
+                // Chuyển hướng về trang index.html
+                window.location.href = '../index.html';
             });
 
             document.querySelectorAll('.answer-input').forEach(input => {

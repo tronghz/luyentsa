@@ -394,7 +394,7 @@
         }
 
         function loadMarkedQuestions() {
-            const saved = localStorage.getItem('markedQuestions');
+            const saved = localStorage.getItem('markedQuestions_b4');  //abc
             if (saved) {
                 markedQuestions = JSON.parse(saved);
                 updateActiveCircle();
@@ -464,8 +464,8 @@
         document.addEventListener('MSFullscreenChange', checkFullscreen);
 
         document.addEventListener('DOMContentLoaded', function() {
-            const savedAnswers = localStorage.getItem('savedAnswers');      //thay đổi
-            const savedQuestions = localStorage.getItem('savedQuestions');   //thay đổiđổi
+            const savedAnswers = localStorage.getItem('savedAnswers_b4');      //abc
+            const savedQuestions = localStorage.getItem('savedQuestions_b4');   //abc
             
             if (savedAnswers && savedQuestions) {
                 answers = JSON.parse(savedAnswers);
@@ -481,8 +481,8 @@
 
             document.getElementById('saveAndExitButton').addEventListener('click', () => {
                 saveCurrentAnswer();
-                localStorage.setItem('savedAnswers', JSON.stringify(answers));
-                localStorage.setItem('savedQuestions', JSON.stringify(questions));
+                localStorage.setItem('savedAnswers_b4', JSON.stringify(answers)); //abc
+                localStorage.setItem('savedQuestions_b4', JSON.stringify(questions)); //abc
                 
                 hasUnsavedChanges = false;
                 // Chuyển hướng về trang index.html
