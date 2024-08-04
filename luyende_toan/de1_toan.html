@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đề Thi Toán</title>
+    <link rel="icon" href="images.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff4d6d;
+            --primary-light: #ff758f;
+            --primary-dark: #c9184a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #fff0f3 0%, #ffb3c1 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .background-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 20vw;
+            font-weight: bold;
+            color: rgba(255, 77, 109, 0.05);
+            z-index: -1;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 30px;
+            width: 95%;
+            max-width: 1000px;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.1);
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-dark);
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        #questionContainer {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.05);
+        }
+
+        #questionContainer img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .question-circles {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 10px;
+            padding: 20px;
+            background-color: #fff0f3;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.05);
+        }
+
+        .question-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ffb3c1;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #000000;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .question-circle:hover {
+            transform: scale(1.1);
+            background-color: var(--primary-light);
+        }
+
+        .question-circle.active {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .question-circle.marked {
+            background-color: #ffd6e0;
+            color: #c9184a;
+        }
+
+        .question-circle.answered {
+            background-color: #39ff23;
+            color: #000000;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .button {
+            background: var(--primary-color);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 93, 93, 0.418);
+        }
+
+        .button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(17, 235, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 1;
+            }
+            20% {
+                transform: scale(25, 25);
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(40, 40);
+            }
+        }
+
+        .button:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+
+        .top-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .nav-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .answer-section {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .answer-input {
+            width: 18%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ffb3c1;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s;
+            text-align: center;
+        }
+
+        .answer-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .fullscreen-prompt {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 400px;
+            padding: 30px;
+            background-color: rgba(255, 77, 109, 0.9);
+            color: white;
+            z-index: 9999;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .fullscreen-prompt h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .fullscreen-prompt .button {
+            padding: 12px 24px;
+            font-size: 18px;
+            background-color: white;
+            color: #ff4d6d;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fullscreen-prompt .button:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9998;
+            backdrop-filter: blur(5px);
+        }
+
+        .pdf-window {
+            position: fixed;
+            top: 50px;
+            right: 50px;
+            width: 700px;
+            height: 600px;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+        }
+
+        .pdf-header {
+            padding: 10px;
+            background-color: #2efef7;
+            cursor: move;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pdf-content {
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .pdf-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .close-pdf {
+            cursor: pointer;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="overlay" class="overlay"></div>
+    <div id="fullscreenPrompt" class="fullscreen-prompt">
+        <h2>Vui lòng chuyển sang chế độ toàn màn hình để bắt đầu</h2>
+        <button id="fullscreenButton" class="button">Toàn Màn Hình</button>
+    </div>
+
+    <div id="mainContent" class="hidden">
+        <div class="background-text">TOÁN</div>
+
+        <div class="container">
+            <div class="top-buttons">
+                <button id="viewAnswerButton" class="button">Xem đáp án</button>
+            </div>
+            
+            <h1>Đề Thi Toán</h1>
+            <div id="questionContainer">
+                <!-- Câu hỏi sẽ được thêm vào đây bằng JavaScript -->
+            </div>
+            <div class="answer-section">
+                <input type="text" class="answer-input" placeholder="...">
+                <input type="text" class="answer-input" placeholder="...">
+                <input type="text" class="answer-input" placeholder="...">
+                <input type="text" class="answer-input" placeholder="...">
+                <input type="text" class="answer-input" placeholder="...">
+            </div>
+            <div class="navigation-buttons">
+                <div class="nav-group">
+                    <button id="prevButton" class="button">Trước</button>
+                    <button id="nextButton" class="button">Sau</button>
+                </div>
+                <button id="saveAndExitButton" class="button">Lưu và Thoát</button>
+            </div>
+            <div class="question-circles" id="questionCircles">
+                <!-- Các ô tròn sẽ được thêm vào đây bằng JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <div id="pdfWindow" class="pdf-window">       
+        <div id="pdfHeader" class="pdf-header">
+            <span>Đáp án</span>
+            <span class="close-pdf" id="closePdf">&times;</span>
+        </div>
+        <div class="pdf-content">     
+            <iframe id="pdfViewer" src="de1_toan/luyende_toan_a1.pdf"></iframe>          //abc   
+        </div>             
+    </div>
+
+    <script>
+        let currentQuestion = 0;
+        let questions = [                                         //abc
+            "de1_toan/luyende_toan_a1_1.jpg",
+            "de1_toan/luyende_toan_a1_2.jpg",
+            "de1_toan/luyende_toan_a1_3.jpg",
+            "de1_toan/luyende_toan_a1_4.jpg",
+            "de1_toan/luyende_toan_a1_5.jpg",
+            "de1_toan/luyende_toan_a1_6.jpg",
+            "de1_toan/luyende_toan_a1_7.jpg",
+            "de1_toan/luyende_toan_a1_8.jpg",
+            "de1_toan/luyende_toan_a1_9.jpg",
+            "de1_toan/luyende_toan_a1_10.jpg",
+            "de1_toan/luyende_toan_a1_11.jpg",
+            "de1_toan/luyende_toan_a1_12.jpg",
+            "de1_toan/luyende_toan_a1_13.jpg",
+            "de1_toan/luyende_toan_a1_14.jpg",
+            "de1_toan/luyende_toan_a1_15.jpg",
+            "de1_toan/luyende_toan_a1_16.jpg",
+            "de1_toan/luyende_toan_a1_17.jpg",
+            "de1_toan/luyende_toan_a1_18.jpg",
+            "de1_toan/luyende_toan_a1_19.jpg",
+            "de1_toan/luyende_toan_a1_20.jpg",
+            "de1_toan/luyende_toan_a1_21.jpg",
+            "de1_toan/luyende_toan_a1_22.jpg",
+            "de1_toan/luyende_toan_a1_23.jpg",
+            "de1_toan/luyende_toan_a1_24.jpg",
+            "de1_toan/luyende_toan_a1_25.jpg",
+            "de1_toan/luyende_toan_a1_26.jpg",
+            "de1_toan/luyende_toan_a1_27.jpg",
+            "de1_toan/luyende_toan_a1_28.jpg",
+            "de1_toan/luyende_toan_a1_29.jpg",
+            "de1_toan/luyende_toan_a1_30.jpg",
+            "de1_toan/luyende_toan_a1_31.jpg",
+            "de1_toan/luyende_toan_a1_32.jpg",
+            "de1_toan/luyende_toan_a1_33.jpg",
+            "de1_toan/luyende_toan_a1_34.jpg",
+            "de1_toan/luyende_toan_a1_35.jpg",
+            "de1_toan/luyende_toan_a1_36.jpg",
+            "de1_toan/luyende_toan_a1_37.jpg",
+            "de1_toan/luyende_toan_a1_38.jpg",
+            "de1_toan/luyende_toan_a1_39.jpg",
+            "de1_toan/luyende_toan_a1_40.jpg",
+            ];
+        let answers = new Array(questions.length).fill(['','','','','']);
+        let markedQuestions = [];
+        let hasUnsavedChanges = false;
+
+        function addQuestion(imagePath) {
+            console.log("Adding question with image path:", imagePath);
+            const questionContainer = document.getElementById('questionContainer');
+            questionContainer.innerHTML = `<img src="${imagePath}" alt="Câu hỏi" onerror="this.onerror=null; this.src='path/to/fallback-image.jpg'; console.error('Failed to load image:', this.src)">`;
+        }
+
+        function createQuestionCircles() {
+            const circlesContainer = document.getElementById('questionCircles');
+            questions.forEach((_, index) => {
+                const circle = document.createElement('div');
+                circle.className = 'question-circle';
+                circle.textContent = index + 1;
+                circle.onclick = () => goToQuestion(index);
+                circlesContainer.appendChild(circle);
+            });
+        }
+
+        function goToQuestion(index) {
+            saveCurrentAnswer();
+            currentQuestion = index;
+            displayCurrentQuestion();
+            updateActiveCircle();
+        }
+
+        function hasAnswer(index) {
+            return Array.isArray(answers[index]) && answers[index].some(answer => answer.trim() !== '');
+        }
+
+        function updateActiveCircle() {
+            const circles = document.querySelectorAll('.question-circle');
+            circles.forEach((circle, index) => {
+                circle.classList.toggle('active', index === currentQuestion);
+                circle.classList.toggle('marked', markedQuestions.includes(index));
+                circle.classList.toggle('answered', hasAnswer(index));
+            });
+        }
+
+        function navigateQuestion(direction) {
+            saveCurrentAnswer();
+            if (direction === 'next' && currentQuestion < questions.length - 1) {
+                currentQuestion++;
+            } else if (direction === 'prev' && currentQuestion > 0) {
+                currentQuestion--;
+            }
+            displayCurrentQuestion();
+            updateActiveCircle();
+        }
+
+        function displayCurrentQuestion() {
+            addQuestion(questions[currentQuestion]);
+            const inputs = document.querySelectorAll('.answer-input');
+            inputs.forEach((input, index) => {
+                input.value = answers[currentQuestion][index] || '';
+            });
+            updateActiveCircle();
+        }
+
+        function saveCurrentAnswer() {
+            const inputs = document.querySelectorAll('.answer-input');
+            answers[currentQuestion] = Array.from(inputs).map(input => input.value);
+            updateActiveCircle();
+            hasUnsavedChanges = true;
+        }
+
+        function loadMarkedQuestions() {
+            const saved = localStorage.getItem('markedQuestions_a1');             //abc
+            if (saved) {
+                markedQuestions = JSON.parse(saved);
+                updateActiveCircle();
+            }
+        }
+
+        function initializeQuestions() {
+            createQuestionCircles();
+            displayCurrentQuestion();
+            updateActiveCircle();
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) {
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                }
+            }
+        }
+
+        function exitFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        }
+
+        function checkFullscreen() {
+            const fullscreenPrompt = document.getElementById('fullscreenPrompt');
+            const mainContent = document.getElementById('mainContent');
+            const overlay = document.getElementById('overlay');
+
+            if (document.fullscreenElement) {
+                fullscreenPrompt.style.display = 'none';
+                overlay.style.display = 'none';
+                mainContent.style.display = 'block';
+            } else {
+                fullscreenPrompt.style.display = 'flex';
+                overlay.style.display = 'block';
+                mainContent.style.display = 'block';
+            }
+        }
+
+        let isDragging = false;
+        let currentX;
+        let currentY;
+        let initialX;
+        let initialY;
+        let xOffset = 0;
+        let yOffset = 0;
+
+        function showPdfWindow() {
+            document.getElementById('pdfWindow').style.display = 'flex';
+        }
+
+        function closePdfWindow() {
+            document.getElementById('pdfWindow').style.display = 'none';
+        }
+
+        function dragStart(e) {
+            initialX = e.clientX - xOffset;
+            initialY = e.clientY - yOffset;
+
+            if (e.target === document.getElementById('pdfHeader')) {
+                isDragging = true;
+            }
+        }
+
+        function dragEnd(e) {
+            initialX = currentX;
+            initialY = currentY;
+
+            isDragging = false;
+        }
+
+        function drag(e) {
+            if (isDragging) {
+                e.preventDefault();
+                currentX = e.clientX - initialX;
+                currentY = e.clientY - initialY;
+
+                xOffset = currentX;
+                yOffset = currentY;
+
+                setTranslate(currentX, currentY, document.getElementById('pdfWindow'));
+            }
+        }
+
+        function setTranslate(xPos, yPos, el) {
+            el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedAnswers = localStorage.getItem('savedAnswers_a1');                  //abc
+            const savedQuestions = localStorage.getItem('savedQuestions_a1');                  //abc
+            
+            if (savedAnswers && savedQuestions) {
+                answers = JSON.parse(savedAnswers);
+                questions = JSON.parse(savedQuestions);
+                loadMarkedQuestions();
+                initializeQuestions();
+            } else {
+                initializeQuestions();
+            }
+
+            document.getElementById('prevButton').addEventListener('click', () => navigateQuestion('prev'));
+            document.getElementById('nextButton').addEventListener('click', () => navigateQuestion('next'));
+
+            document.getElementById('saveAndExitButton').addEventListener('click', () => {
+                saveCurrentAnswer();
+                localStorage.setItem('savedAnswers_a1', JSON.stringify(answers));                  //abc
+                localStorage.setItem('savedQuestions_a1', JSON.stringify(questions));             //abc
+                
+                hasUnsavedChanges = false;
+                window.location.href = '../index.html';
+            });
+
+            document.querySelectorAll('.answer-input').forEach(input => {
+                input.addEventListener('input', () => {
+                    hasUnsavedChanges = true;
+                });
+            });
+
+            document.getElementById('fullscreenButton').addEventListener('click', toggleFullscreen);
+            document.getElementById('viewAnswerButton').addEventListener('click', showPdfWindow);
+            document.getElementById('closePdf').addEventListener('click', closePdfWindow);
+
+            const pdfWindow = document.getElementById('pdfWindow');
+            pdfWindow.addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', dragEnd);
+        });
+
+        document.addEventListener('fullscreenchange', checkFullscreen);
+        document.addEventListener('webkitfullscreenchange', checkFullscreen);
+        document.addEventListener('mozfullscreenchange', checkFullscreen);
+        document.addEventListener('MSFullscreenChange', checkFullscreen);
+
+        window.addEventListener('beforeunload', function (e) {
+            if (hasUnsavedChanges) {
+                const message = 'Các thay đổi bạn đã thực hiện có thể không được lưu.';
+                e.returnValue = message;
+                return message;
+            }
+        });
+
+        document.querySelectorAll('.button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                let x = e.clientX - e.target.offsetLeft;
+                let y = e.clientY - e.target.offsetTop;
+
+                let ripples = document.createElement('span');
+                ripples.style.left = x + 'px';
+                ripples.style.top = y + 'px';
+                this.appendChild(ripples);
+
+                setTimeout(() => {
+                    ripples.remove()
+                }, 1000);
+            });
+        });
+
+        checkFullscreen();
+    </script>
+</body>
+</html>

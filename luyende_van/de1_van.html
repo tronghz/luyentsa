@@ -270,65 +270,36 @@
 
         const documents = [
             {
-                pdf: 'khotailieu_b3/dochieu_1/dochieu_1.pdf',
+                pdf: "de1_van/dochieu_1/dochieu_1.pdf",
                 questions: [
-                "khotailieu_b3/dochieu_1/dochieu1_1.jpg",
-  "khotailieu_b3/dochieu_1/dochieu1_2.jpg",
-  "khotailieu_b3/dochieu_1/dochieu1_3.jpg",
-  "khotailieu_b3/dochieu_1/dochieu1_4.jpg",
-  "khotailieu_b3/dochieu_1/dochieu1_5.jpg",
-  "khotailieu_b3/dochieu_1/dochieu1_6.jpg",
-  "khotailieu_b3/dochieu_1/dochieu1_7.jpg",
-  "khotailieu_b3/dochieu_1/dochieu1_8.jpg",
-  "khotailieu_b3/dochieu_1/dochieu1_9.jpg",
-  "khotailieu_b3/dochieu_1/dochieu1_10.jpg",
+                "de1_van/dochieu_1/luyende_van_c1_1.jpg",
+  "de1_van/dochieu_1/luyende_van_c1_2.jpg",
+  "de1_van/dochieu_1/luyende_van_c1_3.jpg",
+  "de1_van/dochieu_1/luyende_van_c1_4.jpg",
+  "de1_van/dochieu_1/luyende_van_c1_5.jpg",
+  "de1_van/dochieu_1/luyende_van_c1_6.jpg",
+  "de1_van/dochieu_1/luyende_van_c1_7.jpg",
+  "de1_van/dochieu_1/luyende_van_c1_8.jpg",
+  "de1_van/dochieu_1/luyende_van_c1_9.jpg",
+  "de1_van/dochieu_1/luyende_van_c1_10.jpg",
                 ]
             },
             {
-                pdf: 'khotailieu_b3/dochieu_2/dochieu_2.pdf',
+                pdf: 'de1_van/dochieu_2/dochieu_2.pdf',
                 questions: [
-    "khotailieu_b3/dochieu_2/dochieu2_1.jpg",
-  "khotailieu_b3/dochieu_2/dochieu2_2.jpg",
-  "khotailieu_b3/dochieu_2/dochieu2_3.jpg",
-  "khotailieu_b3/dochieu_2/dochieu2_4.jpg",
-  "khotailieu_b3/dochieu_2/dochieu2_5.jpg",
-  "khotailieu_b3/dochieu_2/dochieu2_6.jpg",
-  "khotailieu_b3/dochieu_2/dochieu2_7.jpg",
-  "khotailieu_b3/dochieu_2/dochieu2_8.jpg",
-  "khotailieu_b3/dochieu_2/dochieu2_9.jpg",
-  "khotailieu_b3/dochieu_2/dochieu2_10.jpg",
+                "de1_van/dochieu_2/luyende_van_c2_1.jpg",
+  "de1_van/dochieu_2/luyende_van_c2_2.jpg",
+  "de1_van/dochieu_2/luyende_van_c2_3.jpg",
+  "de1_van/dochieu_2/luyende_van_c2_4.jpg",
+  "de1_van/dochieu_2/luyende_van_c2_5.jpg",
+  "de1_van/dochieu_2/luyende_van_c2_6.jpg",
+  "de1_van/dochieu_2/luyende_van_c2_7.jpg",
+  "de1_van/dochieu_2/luyende_van_c2_8.jpg",
+  "de1_van/dochieu_2/luyende_van_c2_9.jpg",
+  "de1_van/dochieu_2/luyende_van_c2_10.jpg",
                 ]
             },
-            {
-                pdf: 'khotailieu_b3/dochieu_3/dochieu_3.pdf',
-                questions: [
-                "khotailieu_b3/dochieu_3/dochieu3_1.jpg",
-  "khotailieu_b3/dochieu_3/dochieu3_2.jpg",
-  "khotailieu_b3/dochieu_3/dochieu3_3.jpg",
-  "khotailieu_b3/dochieu_3/dochieu3_4.jpg",
-  "khotailieu_b3/dochieu_3/dochieu3_5.jpg",
-  "khotailieu_b3/dochieu_3/dochieu3_6.jpg",
-  "khotailieu_b3/dochieu_3/dochieu3_7.jpg",
-  "khotailieu_b3/dochieu_3/dochieu3_8.jpg",
-  "khotailieu_b3/dochieu_3/dochieu3_9.jpg",
-  "khotailieu_b3/dochieu_3/dochieu3_10.jpg",
-                ]
-            },
-            {
-                pdf: 'khotailieu_b3/dochieu_4/dochieu_4.pdf',
-                questions: [
-                "khotailieu_b3/dochieu_4/dochieu4_1.jpg",
-  "khotailieu_b3/dochieu_4/dochieu4_2.jpg",
-  "khotailieu_b3/dochieu_4/dochieu4_3.jpg",
-  "khotailieu_b3/dochieu_4/dochieu4_4.jpg",
-  "khotailieu_b3/dochieu_4/dochieu4_5.jpg",
-  "khotailieu_b3/dochieu_4/dochieu4_6.jpg",
-  "khotailieu_b3/dochieu_4/dochieu4_7.jpg",
-  "khotailieu_b3/dochieu_4/dochieu4_8.jpg",
-  "khotailieu_b3/dochieu_4/dochieu4_9.jpg",
-  "khotailieu_b3/dochieu_4/dochieu4_10.jpg",
-                ]
-            },
+            
         ];
 
         let currentDocumentIndex = 0;
@@ -377,7 +348,7 @@
         };
 
         const saveData = () => {
-            const savedData = JSON.parse(localStorage.getItem('savedAnswers') || '[]');
+            const savedData = JSON.parse(localStorage.getItem('savedAnswers_c1') || '[]');    //abc
             const currentAnswers = [];
             const questionElements = document.querySelectorAll('.question');
             
@@ -403,12 +374,12 @@
                 });
             }
             
-            localStorage.setItem('savedAnswers', JSON.stringify(savedData));
+            localStorage.setItem('savedAnswers_c1', JSON.stringify(savedData));   //abc
             hasUnsavedChanges = false;
         };
 
         const loadSavedData = () => {
-            const savedData = localStorage.getItem('savedAnswers');
+            const savedData = localStorage.getItem('savedAnswers_c1');          //abc
             if (savedData) {
                 const allAnswers = JSON.parse(savedData);
                 hasUnsavedChanges = false;
@@ -464,7 +435,7 @@
 
         document.getElementById('save-exit-btn').addEventListener('click', () => {
             saveData();
-            window.location.href = '../thoi_khoa_bieu.html';
+            window.location.href = '../index.html';
         });
 
         window.addEventListener('load', loadSavedData);
@@ -474,10 +445,10 @@
         document.getElementById('home-btn').addEventListener('click', () => {
             if (hasUnsavedChanges) {
                 if (confirm('Bạn có thay đổi chưa được lưu. Bạn có chắc chắn muốn thoát không?')) {
-                    window.location.href = '../thoi_khoa_bieu.html';
+                    window.location.href = '../index.html';
                 }
             } else {
-                window.location.href = '../thoi_khoa_bieu.html';
+                window.location.href = '../index.html';
             }
         });
         document.addEventListener('input', function(e) {
@@ -536,7 +507,7 @@
         }
 
         const saveCurrentData = () => {
-            const savedData = JSON.parse(localStorage.getItem('savedAnswers') || '[]');
+            const savedData = JSON.parse(localStorage.getItem('savedAnswers_c1') || '[]');      //abc
             const currentAnswers = [];
             const questionElements = document.querySelectorAll('.question');
             
@@ -562,7 +533,7 @@
                 });
             }
             
-            localStorage.setItem('savedAnswers', JSON.stringify(savedData));
+            localStorage.setItem('savedAnswers_c1', JSON.stringify(savedData));            //abc
         };
 
     </script>

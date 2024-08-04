@@ -3,7 +3,7 @@ import json
 import re
 
 # Đường dẫn đến thư mục chứa ảnh
-folder_path = r"D:\tool_tong\code\tsa\toan\khotailieu_b5"
+folder_path = r"D:\tool_tong\code\tsa\luyende_khoahoc\de1_khoahoc\khoahoc_1"
 
 # Hàm để trích xuất số từ tên tệp
 def extract_number(filename):
@@ -17,13 +17,13 @@ image_files = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join
 image_files.sort(key=extract_number)
 
 # Tạo danh sách câu hỏi
-questions = [f"khotailieu_b5/{image}" for image in image_files]
+questions = [f"khoahoc_1/{image}" for image in image_files]
 
 # Tạo nội dung JavaScript
 js_content = f"const questions = {json.dumps(questions, indent=2)};"
 
 # Đường dẫn file JavaScript đầu ra
-output_file = r"D:\tool_tong\code\tsa\toan\khobaitap_toan.js"
+output_file = r"D:\tool_tong\code\tsa\khoahoc\khobaitap_toan.js"
 
 # Ghi nội dung vào file JavaScript
 with open(output_file, 'w', encoding='utf-8') as f:

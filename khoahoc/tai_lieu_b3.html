@@ -377,7 +377,7 @@
         };
 
         const saveData = () => {
-            const savedData = JSON.parse(localStorage.getItem('savedAnswers') || '[]');
+            const savedData = JSON.parse(localStorage.getItem('savedAnswers_b3') || '[]');    //abc
             const currentAnswers = [];
             const questionElements = document.querySelectorAll('.question');
             
@@ -403,12 +403,12 @@
                 });
             }
             
-            localStorage.setItem('savedAnswers', JSON.stringify(savedData));
+            localStorage.setItem('savedAnswers_b3', JSON.stringify(savedData));   //abc
             hasUnsavedChanges = false;
         };
 
         const loadSavedData = () => {
-            const savedData = localStorage.getItem('savedAnswers');
+            const savedData = localStorage.getItem('savedAnswers_b3');          //abc
             if (savedData) {
                 const allAnswers = JSON.parse(savedData);
                 hasUnsavedChanges = false;
@@ -536,7 +536,7 @@
         }
 
         const saveCurrentData = () => {
-            const savedData = JSON.parse(localStorage.getItem('savedAnswers') || '[]');
+            const savedData = JSON.parse(localStorage.getItem('savedAnswers_b3') || '[]');      //abc
             const currentAnswers = [];
             const questionElements = document.querySelectorAll('.question');
             
@@ -562,7 +562,7 @@
                 });
             }
             
-            localStorage.setItem('savedAnswers', JSON.stringify(savedData));
+            localStorage.setItem('savedAnswers_b3', JSON.stringify(savedData));            //abc
         };
 
     </script>
