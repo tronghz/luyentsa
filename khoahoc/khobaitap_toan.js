@@ -1,9 +1,21 @@
 const questions = [
-  "khoahoc_1/khoahoc_1.pdf",
-  "khoahoc_1/luyende_khoahoc_d1_1.jpg",
-  "khoahoc_1/luyende_khoahoc_d1_2.jpg",
-  "khoahoc_1/luyende_khoahoc_d1_3.jpg",
-  "khoahoc_1/luyende_khoahoc_d1_4.jpg",
-  "khoahoc_1/luyende_khoahoc_d1_5.jpg",
-  "khoahoc_1/luyende_khoahoc_d1_6.jpg"
+  "khotailieu_b6/tailieu_b6_1.jpg",
+  "khotailieu_b6/tailieu_b6_2.jpg",
+  "khotailieu_b6/tailieu_b6_3.jpg",
+  "khotailieu_b6/tailieu_b6_4.jpg",
+  "khotailieu_b6/tailieu_b6_5.jpg",
+  "khotailieu_b6/tailieu_b6_6.jpg",
+  "khotailieu_b6/tailieu_b6_7.jpg",
+  "khotailieu_b6/tailieu_b6_8.jpg",
+  "khotailieu_b6/tailieu_b6_9.jpg",
+  "khotailieu_b6/tailieu_b6_10.jpg",
+  "khotailieu_b6/tailieu_b6_11.jpg",
+  "khotailieu_b6/tailieu_b6_12.jpg",
+  "khotailieu_b6/tailieu_b6_13.jpg",
+  "khotailieu_b6/tailieu_b6_14.jpg",
+  "khotailieu_b6/tailieu_b6_15.jpg",
+  "khotailieu_b6/tailieu_b6_16.jpg",
+  "khotailieu_b6/tailieu_b6_17.jpg",
+  "khotailieu_b6/tailieu_b6_18.jpg",
+
 ];
